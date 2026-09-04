@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>site-data.js 스모크 테스트</title>
+<style>
+  body{font-family:-apple-system,sans-serif; max-width:640px; margin:40px auto; padding:0 16px; color:#1E1B16;}
+  h1{font-size:18px;}
+  ul{list-style:none; padding:0;}
+  li{padding:8px 12px; margin-bottom:6px; border-radius:4px; font-size:14px;}
+  li.pass{background:#e6f4ea; color:#1e6b34;}
+  li.fail{background:#fdeaea; color:#b3261e;}
+  #summary{font-weight:700; margin-top:16px;}
+</style>
+</head>
+<body>
+<h1>site-data.js 스모크 테스트</h1>
+<p>이 페이지를 브라우저로 직접 열면 <code>SiteData</code>의 순수 함수를 검증합니다.
+빌드나 서버가 필요 없습니다.</p>
+<ul id="results"></ul>
+<p id="summary"></p>
+
+<script src="../site-data.js"></script>
+<script>
+(function(){
+  var results = [];
+  function assertEqual(name, actual, expected){
+    var ok = actual === expected;
+    results.push({ name: name, ok: ok, actual: actual, expected: expected });
+  }
+
+  if (!window.SiteData){
+    assertEqual('SiteData 로드', false, true);
+  } else {
+    // sqmToPy: 평방미터 -> 평 환산 (1평 = 3.3058 m²)
+    assertEqual('sqmToPy(빈 문자열) => 빈 문자열', SiteData.sqmToPy(''), '');
+    assertEqual('sqmToPy(null) => 빈 문자열', SiteData.sqmToPy(null), '');
+    assertEqual('sqmToPy("0") => 빈 문자열', SiteData.sqmToPy('0'), '');
+    assertEqual('sqmToPy("3.3058") => "1"', SiteData.sqmToPy('3.3058'), '1');
+    assertEqual('sqmToPy("33.058") => "10"', SiteData.sqmToPy('33.058'), '10');
+    assertEqual('sqmToPy("1,000") 콤마 제거 후 계산', SiteData.sqmToPy('1,000'), SiteData.sqmToPy('1000'));
+
+    // esc: HTML 이스케이프
+    assertEqual('esc("<script>") 이스케이프', SiteData.esc('<script>'), '&lt;script&gt;');
+    assertEqual('esc(null) => 빈 문자열', SiteData.esc(null), '');
+    assertEqual('esc("a & b") 이스케이프', SiteData.esc('a & b'), 'a &amp; b');
+  }
+
+  var list = document.getElementById('results');
+  var passCount = 0;
+  results.forEach(function(r){
+    var li = document.createElement('li');
+    li.className = r.ok ? 'pass' : 'fail';
+    li.textContent = (r.ok ? '✓ ' : '✗ ') + r.name +
+      (r.ok ? '' : ' (실제: ' + JSON.stringify(r.actual) + ', 기대: ' + JSON.stringify(r.expected) + ')');
+    list.appendChild(li);
+    if (r.ok) passCount++;
+  });
+  document.getElementById('summary').textContent =
+    passCount + ' / ' + results.length + ' 통과';
+})();
+</script>
+</body>
+</html>
