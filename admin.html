@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>매물 관리 | 22세기 부동산</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<style>
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2') format('woff2-variations');
+  font-weight: 45 920;
+}
+
+:root{
+  --paper:#F3F0E7;
+  --paper-dim:#ECE7D9;
+  --ink:#1E1B16;
+  --steel:#726C5E;
+  --line:#D9D2BE;
+  --red:#D3401C;
+  --red-dark:#A62F12;
+  --white:#FFFFFF;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Pretendard', -apple-system, sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit; text-decoration:none;}
+button{font-family:inherit; cursor:pointer; border:none;}
+img,svg{display:block;}
+.wrap{max-width:900px; margin:0 auto; padding:0 32px;}
+
+header{
+  position:sticky; top:0; z-index:50;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 32px; max-width:1240px; margin:0 auto;
+}
+.logo{display:flex; align-items:center; gap:12px;}
+.logo-mark{
+  width:44px; height:44px; background:var(--ink);
+  color:var(--white); display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:19px; letter-spacing:-1px;
+  clip-path: polygon(0 0, 100% 0, 100% 76%, 76% 100%, 0 100%);
+}
+.logo-text{display:flex; flex-direction:column; line-height:1.2;}
+.logo-text b{font-size:17px; font-weight:800; letter-spacing:-0.3px;}
+.logo-text span{font-size:10.5px; color:var(--steel); letter-spacing:0.5px;}
+.back-link{
+  font-size:12.5px; font-weight:700; color:var(--steel);
+  border:1px solid var(--line); padding:8px 14px;
+}
+.back-link:hover{color:var(--red); border-color:var(--red);}
+
+.page-head{padding:44px 0 8px;}
+.page-head h1{font-size:26px; font-weight:800; letter-spacing:-0.4px; margin-bottom:8px;}
+.page-head p{color:var(--steel); font-size:13.5px;}
+
+main{padding:32px 0 90px;}
+
+.btn-primary{background:var(--red); color:var(--white); font-weight:700; font-size:14.5px; padding:14px 28px;}
+.btn-primary:hover{background:var(--red-dark);}
+.btn-ghost{background:transparent; color:var(--ink); font-weight:700; font-size:13.5px; padding:13px 26px; border:1px solid var(--line);}
+.btn-ghost:hover{border-color:var(--ink);}
+
+/* ---------- lock / admin blocks (shared look with main site) ---------- */
+.lock-box{
+  max-width:420px; margin:20px auto 0; text-align:center;
+  background:var(--white); border:1px solid var(--line); padding:44px 32px;
+}
+.lock-icon{font-size:26px; margin-bottom:10px;}
+.lock-title{font-size:17px; font-weight:800; margin-bottom:6px;}
+.lock-desc{font-size:13px; color:var(--steel); margin-bottom:22px;}
+.lock-form{display:flex; gap:10px;}
+.lock-form input{
+  flex:1; border:1px solid var(--line); padding:12px 14px; font-size:14px; font-family:inherit;
+}
+.lock-form button{
+  background:var(--ink); color:var(--white); font-weight:700; font-size:13.5px; padding:0 20px;
+}
+.lock-form button:hover{background:var(--red);}
+.lock-error{color:var(--red); font-size:12.5px; margin-top:12px;}
+
+.admin-block{
+  background:var(--white); border:1px solid var(--line); padding:32px 36px; margin-bottom:28px;
+}
+.admin-block-title{font-size:16px; font-weight:800; margin-bottom:6px;}
+.admin-block-desc{font-size:12.5px; color:var(--steel); margin-bottom:18px; line-height:1.6;}
+
+.form-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px 24px;}
+.form-field-wide{grid-column:1/-1;}
+.form-field label{display:block; font-size:12.5px; font-weight:700; color:var(--steel); margin-bottom:6px;}
+.sqm-preview{font-size:11.5px; color:var(--red); font-weight:700; margin-top:5px; min-height:14px;}
+.form-field input[type="text"], .form-field select, .form-field textarea{
+  width:100%; border:1px solid var(--line); padding:11px 12px; font-size:14px; font-family:inherit; background:var(--white);
+}
+.check-field{display:flex; align-items:center; gap:8px; padding-top:26px;}
+.check-field label{font-size:13.5px; font-weight:600; display:flex; align-items:center; gap:8px; cursor:pointer;}
+.form-actions{display:flex; gap:12px; margin-top:28px;}
+.form-note{font-size:11.5px; color:var(--steel); margin-top:18px; line-height:1.6;}
+
+/* photo manager */
+.photo-manager{grid-column:1/-1;}
+.photo-strip{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px;}
+.photo-thumb{
+  position:relative; width:88px; height:66px; border:1px solid var(--line); overflow:hidden; background:var(--paper-dim);
+}
+.photo-thumb img{width:100%; height:100%; object-fit:cover;}
+.photo-thumb button{
+  position:absolute; top:2px; right:2px; width:20px; height:20px;
+  background:rgba(20,18,14,.75); color:var(--white); font-size:11px; line-height:1; border:none; cursor:pointer;
+}
+.photo-thumb button:hover{background:var(--red);}
+.photo-empty-hint{font-size:12px; color:var(--steel);}
+
+/* listing management rows */
+.mgmt-row{
+  display:flex; align-items:center; gap:14px;
+  border:1px solid var(--line); padding:12px 16px; margin-bottom:8px;
+}
+.mgmt-thumb{width:56px; height:44px; background:var(--paper-dim); flex-shrink:0; overflow:hidden;}
+.mgmt-thumb img{width:100%; height:100%; object-fit:cover;}
+.mgmt-info{flex:1; min-width:0;}
+.mgmt-info h4{font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.mgmt-info p{font-size:11.5px; color:var(--steel); margin-top:2px;}
+.mgmt-actions{display:flex; gap:8px; flex-shrink:0;}
+.mgmt-actions button{
+  font-size:12px; font-weight:700; padding:6px 12px; border:1px solid var(--line); background:var(--white);
+}
+.mgmt-actions button:hover{border-color:var(--red); color:var(--red);}
+
+/* region / notice manage */
+.region-manage-list, .notice-manage-list{display:flex; flex-direction:column; gap:8px; margin-bottom:16px;}
+.region-manage-row, .notice-manage-row{
+  display:flex; justify-content:space-between; align-items:center;
+  border:1px solid var(--line); padding:10px 14px; font-size:13.5px;
+}
+.region-manage-row span, .notice-manage-row .nm-title{font-weight:600;}
+.notice-manage-row .nm-url{font-size:11.5px; color:var(--steel); margin-left:8px;}
+.row-del{background:none; border:none; color:var(--steel); font-size:12px; cursor:pointer; font-weight:700;}
+.row-del:hover{color:var(--red);}
+.region-add-row, .notice-add-grid{display:flex; gap:10px; flex-wrap:wrap;}
+.region-add-row input, .notice-add-grid input{
+  border:1px solid var(--line); padding:11px 12px; font-size:13.5px; font-family:inherit;
+}
+.region-add-row input{flex:1;}
+.notice-add-grid input:nth-child(1){flex:1 1 220px;}
+.notice-add-grid input:nth-child(2){flex:1 1 220px;}
+.region-add-row button, .notice-add-grid button{padding:11px 18px; font-size:13px;}
+.empty-hint{font-size:12.5px; color:var(--steel); padding:8px 0;}
+
+.lock-again-full{display:block; margin:36px auto 0; padding:12px 30px; font-size:13px;}
+
+@media (max-width:640px){
+  .form-grid{grid-template-columns:1fr;}
+  .lock-form{flex-direction:column;}
+  .wrap{padding:0 20px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">22</div>
+      <div class="logo-text">
+        <b>22세기 부동산</b>
+        <span>매물 관리 페이지</span>
+      </div>
+    </a>
+    <a href="index.html" class="back-link">← 홈페이지로 돌아가기</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <h1>매물 관리</h1>
+      <p>공인중개사 등록 정보가 있으신 관리자만 매물·지역·공지를 관리하실 수 있어요. 이 페이지는 홈페이지와 별도 창에서 열려요.</p>
+    </div>
+
+    <div id="registerLocked" class="lock-box">
+      <p class="lock-icon">🔒</p>
+      <p class="lock-title">관리자 확인이 필요해요</p>
+      <p class="lock-desc">등록 코드를 입력하시면 관리 화면이 열립니다.</p>
+      <div class="lock-form">
+        <input type="password" id="adminCodeInput" placeholder="관리자 등록 코드">
+        <button id="adminCodeSubmit">확인</button>
+      </div>
+      <p class="lock-error" id="lockError" style="display:none;">코드가 올바르지 않아요. 다시 확인해주세요.</p>
+    </div>
+
+    <div id="adminPanel" style="display:none;">
+
+      <div class="admin-block">
+        <h3 class="admin-block-title" id="formTitle">매물 등록</h3>
+        <p class="admin-block-desc">여기서 등록·수정한 매물이 홈페이지 매물 카드에 그대로 반영돼요.</p>
+        <form id="registerForm">
+          <div class="form-grid">
+            <div class="form-field">
+              <label>매물종류</label>
+              <select id="fPropType">
+                <option>공장</option>
+                <option>물류창고</option>
+                <option>공장용지</option>
+                <option>지식산업센터</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>거래유형</label>
+              <select id="fTradeType">
+                <option value="임대" id="optTradeLease">임대</option>
+                <option value="매매">매매</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>지역 (필터용)</label>
+              <select id="fRegion" class="region-select"></select>
+            </div>
+            <div class="form-field">
+              <label>물건번호 (선택)</label>
+              <input type="text" id="fListingNo" placeholder="예: 1-11877">
+            </div>
+            <div class="form-field">
+              <label>주소 (읍·면까지만)</label>
+              <input type="text" id="fTitle" placeholder="예: 대구시 서구 / 화성시 향남읍">
+              <p class="sqm-preview">매물 카드에는 여기 입력한 내용만 그대로 표시돼요.</p>
+            </div>
+            <div class="form-field">
+              <label>상세주소 1 (읍·면 이하)</label>
+              <input type="text" id="fAddress" placeholder="예: OO리 000-0">
+            </div>
+            <div class="form-field">
+              <label>주필지 면적 (m²)</label>
+              <input type="text" id="fLandSqm" placeholder="예: 3527.2886">
+              <p class="sqm-preview" id="fLandPyPreview"></p>
+            </div>
+            <div class="form-field">
+              <label>상세주소 2 (지번이 2개일 때)</label>
+              <input type="text" id="fAddress2" placeholder="예: OO리 000-1 (선택)">
+            </div>
+            <div class="form-field">
+              <label>그외필지 면적 (m², 선택)</label>
+              <input type="text" id="fLandSqm2" placeholder="예: 366.9438">
+              <p class="sqm-preview" id="fLandSqm2PyPreview"></p>
+            </div>
+            <div class="form-field form-field-wide">
+              <label>총면적 (자동 합산)</label>
+              <p class="sqm-preview" id="fLandTotalPreview">주필지·그외필지 면적을 입력하면 자동으로 합산돼요.</p>
+            </div>
+
+            <div class="form-field">
+              <label>용도지역</label>
+              <input type="text" id="fLandUseZone" placeholder="예: 계획관리지역">
+            </div>
+            <div class="form-field">
+              <label>지목</label>
+              <input type="text" id="fLotCategory" placeholder="예: 공장용지">
+            </div>
+
+            <div class="form-field grp-building">
+              <label>건축면적 (m²)</label>
+              <input type="text" id="fBuildingSqm" placeholder="예: 2897.4">
+              <p class="sqm-preview" id="fBuildingPyPreview"></p>
+            </div>
+            <div class="form-field grp-building">
+              <label>연면적 (m²)</label>
+              <input type="text" id="fTotalFloorSqm" placeholder="예: 3416">
+              <p class="sqm-preview" id="fTotalFloorPyPreview"></p>
+            </div>
+            <div class="form-field grp-building">
+              <label>준공연도</label>
+              <input type="text" id="fBuiltYear" placeholder="예: 2009년">
+            </div>
+            <div class="form-field grp-building">
+              <label>층고</label>
+              <input type="text" id="fCeilingHeight" placeholder="예: 9m">
+            </div>
+            <div class="form-field grp-building">
+              <label>건물 용도</label>
+              <input type="text" id="fBuildingUse" placeholder="예: 공장">
+            </div>
+            <div class="form-field grp-building">
+              <label>수도</label>
+              <input type="text" id="fWater" placeholder="예: 상수도">
+            </div>
+
+            <div class="form-field grp-elec">
+              <label>전기</label>
+              <input type="text" id="fElectricity" placeholder="예: 350kw">
+            </div>
+            <div class="form-field grp-elec">
+              <label>호이스트</label>
+              <input type="text" id="fHoist" placeholder="예: 10톤,5톤">
+            </div>
+
+            <div class="form-field grp-dock">
+              <label>도크</label>
+              <input type="text" id="fDock" placeholder="예: 4개 / o">
+            </div>
+            <div class="form-field grp-dock">
+              <label>고속도로 (IC)</label>
+              <input type="text" id="fHighway" placeholder="예: OO IC 5분">
+            </div>
+
+            <div class="form-field grp-lease">
+              <label>보증금 (만원)</label>
+              <input type="text" id="fDeposit" placeholder="예: 8,000">
+            </div>
+            <div class="form-field grp-lease">
+              <label>임대료 (만원)</label>
+              <input type="text" id="fRent" placeholder="예: 800">
+            </div>
+
+            <div class="form-field grp-sale">
+              <label>총금액 (만원)</label>
+              <input type="text" id="fTotalPrice" placeholder="예: 294,500">
+              <input type="hidden" id="fPricePerPy">
+              <p class="sqm-preview" id="fPricePerPyPreview">총금액을 입력하면 평당금액이 자동으로 계산돼요.</p>
+            </div>
+
+            <div class="form-field form-field-wide grp-permit">
+              <label>허가사항</label>
+              <input type="text" id="fPermitInfo" placeholder="예: 고물상(자원순환시설)">
+            </div>
+
+            <div class="check-field">
+              <label><input type="checkbox" id="fExclusive"> 전속 매물</label>
+              <label><input type="checkbox" id="fHighlight"> 강조 표시(배경색)</label>
+            </div>
+            <div class="form-field form-field-wide">
+              <label>매물특징 (여러 줄 가능)</label>
+              <textarea id="fCaption" rows="4" placeholder="예: 송악ic인근 공장(전속)&#10;▶공장면적&#10;-공장 303평&#10;-사무실 68평 + 기숙사 54평(6호실)"></textarea>
+            </div>
+            <div class="form-field form-field-wide photo-manager">
+              <label>매물 사진 (최대 3장)</label>
+              <div class="photo-strip" id="photoStrip"></div>
+              <input type="file" id="fPhotoAdd" accept="image/*" multiple>
+              <p class="photo-empty-hint">사진을 선택하면 자동으로 용량을 줄여서 추가돼요(매물당 최대 3장). 각 사진의 ✕를 누르면 뺄 수 있어요.</p>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="formSubmitBtn">매물 등록</button>
+            <button type="button" id="cancelEditBtn" class="btn-ghost" style="display:none;">수정 취소</button>
+          </div>
+          <p class="form-note">※ 지금은 프론트엔드 데모 단계라 등록·수정한 매물은 이 브라우저에만 저장돼요. 다른 방문자에게도 보이게 하려면 서버·데이터베이스 연동이 필요해요.</p>
+        </form>
+      </div>
+
+      <div class="admin-block">
+        <h3 class="admin-block-title">등록된 매물 목록</h3>
+        <p class="admin-block-desc">여기서 바로 수정하거나 삭제할 수 있어요.</p>
+        <div id="listingMgmtList"></div>
+      </div>
+
+      <div class="admin-block">
+        <h3 class="admin-block-title">지역 관리</h3>
+        <p class="admin-block-desc">여기서 추가한 지역은 매물 등록 폼과 홈페이지 지도 옆 "인근 지역"에 바로 반영돼요. 대구 9개 구·군은 기본 지도에 이미 있어서 그 외 지역(예: 성주군, 고령군)만 관리하면 돼요.</p>
+        <div class="region-manage-list" id="regionManageList"></div>
+        <div class="region-add-row">
+          <input type="text" id="newRegionInput" placeholder="예: 성주군">
+          <button type="button" id="addRegionBtn" class="btn-ghost">지역 추가</button>
+        </div>
+      </div>
+
+      <div class="admin-block">
+        <h3 class="admin-block-title">공지·링크 관리</h3>
+        <p class="admin-block-desc">등록하면 홈페이지 상단 공지 바에 노출돼요. 링크는 선택사항이에요.</p>
+        <div class="notice-manage-list" id="noticeManageList"></div>
+        <div class="notice-add-grid">
+          <input type="text" id="newNoticeTitle" placeholder="공지 제목 (예: 추석 연휴 휴무 안내)">
+          <input type="text" id="newNoticeUrl" placeholder="링크 URL (선택)">
+          <button type="button" id="addNoticeBtn" class="btn-ghost">공지 추가</button>
+        </div>
+      </div>
+
+      <button type="button" id="lockAgainBtn" class="btn-ghost lock-again-full">잠그기</button>
+    </div>
+  </div>
+</main>
+
+<script src="site-data.js"></script>
+<script>
+// site-data.js 가 같은 폴더에 없으면 화면이 멈추므로, 원인을 눈에 보이게 알려줍니다.
+(function(){
+  if (window.SiteData) return;
+  function show(){
+    var box = document.createElement('div');
+    box.style.cssText = 'position:fixed;left:0;right:0;top:0;z-index:99999;background:#C0392B;color:#fff;' +
+      'padding:16px 20px;font-size:14px;line-height:1.7;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.25);';
+    box.innerHTML = '<b>site-data.js 파일을 찾을 수 없어 사이트가 동작하지 않습니다.</b><br>' +
+      'index.html · admin.html · site-data.js 세 파일을 <u>같은 폴더</u>에 함께 두고 index.html 을 열어주세요.';
+    document.body.appendChild(box);
+  }
+  if (document.body) show(); else document.addEventListener('DOMContentLoaded', show);
+})();
+</script>
+<script>
+(function(){
+  if (!window.SiteData) return;
+  var ADMIN_CODE = '22c-2026'; // 데모용 코드입니다. 실제 운영 시 반드시 바꾸고, 진짜 보안이 필요하면 서버 로그인으로 바꾸세요.
+  var esc = SiteData.esc;
+
+  var lockedBox = document.getElementById('registerLocked');
+  var adminPanel = document.getElementById('adminPanel');
+  var codeInput = document.getElementById('adminCodeInput');
+  var codeSubmit = document.getElementById('adminCodeSubmit');
+  var lockError = document.getElementById('lockError');
+  var lockAgainBtn = document.getElementById('lockAgainBtn');
+
+  var form = document.getElementById('registerForm');
+  var formTitle = document.getElementById('formTitle');
+  var formSubmitBtn = document.getElementById('formSubmitBtn');
+  var cancelEditBtn = document.getElementById('cancelEditBtn');
+
+  // ---------- lock / unlock (다른 기능보다 먼저 연결해서, 아래쪽 코드에 문제가 생겨도 로그인은 항상 작동하게 해요) ----------
+  function unlock(){
+    lockedBox.style.display = 'none';
+    adminPanel.style.display = 'block';
+    lockError.style.display = 'none';
+    codeInput.value = '';
+    try {
+      populateRegionSelects();
+      renderListingMgmt();
+      renderRegionManageList();
+      renderNoticeManageList();
+    } catch (err){
+      console.error('관리 화면을 불러오는 중 문제가 생겼어요:', err);
+    }
+  }
+  function lock(){
+    lockedBox.style.display = 'block';
+    adminPanel.style.display = 'none';
+    try { resetFormToAddMode(); } catch (err){ console.error(err); }
+  }
+  codeSubmit.addEventListener('click', function(){
+    if (codeInput.value.trim().toLowerCase() === ADMIN_CODE.toLowerCase()){ unlock(); }
+    else { lockError.style.display = 'block'; }
+  });
+  codeInput.addEventListener('keydown', function(e){
+    if (e.key === 'Enter'){ e.preventDefault(); codeSubmit.click(); }
+  });
+  lockAgainBtn.addEventListener('click', lock);
+
+  // 평방미터(m²) -> 평 환산. SiteData.sqmToPy를 쓰되, 혹시 site-data.js가 최신이 아니어도 동작하도록 이 파일 안에도 같은 계산을 넣어둬요.
+  function sqmToPy(sqm){
+    if (window.SiteData && typeof SiteData.sqmToPy === 'function'){
+      try { return SiteData.sqmToPy(sqm); } catch (err){ /* fall through to local calc */ }
+    }
+    var n = parseFloat(String(sqm == null ? '' : sqm).replace(/,/g, ''));
+    if (!n || isNaN(n)) return '';
+    return (Math.round((n / 3.3058) * 10) / 10).toString();
+  }
+
+  // 입력칸에서 Enter를 누르면(줄바꿈이 필요한 textarea 제외) 다음 입력칸으로 이동해요.
+  form.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter') return;
+    var tag = e.target.tagName;
+    if (tag === 'TEXTAREA' || tag === 'BUTTON') return;
+    e.preventDefault();
+    var focusable = Array.prototype.slice.call(
+      form.querySelectorAll('input, select, textarea')
+    ).filter(function(el){ return !el.disabled && el.offsetParent !== null; });
+    var idx = focusable.indexOf(e.target);
+    if (idx > -1 && idx < focusable.length - 1){
+      focusable[idx + 1].focus();
+      if (typeof focusable[idx + 1].select === 'function') focusable[idx + 1].select();
+    }
+  });
+
+  var fTradeType = document.getElementById('fTradeType');
+  var fPropType = document.getElementById('fPropType');
+  var fRegion = document.getElementById('fRegion');
+  var fListingNo = document.getElementById('fListingNo');
+  var fTitle = document.getElementById('fTitle');
+  var fAddress = document.getElementById('fAddress');
+  var fAddress2 = document.getElementById('fAddress2');
+  var fLandUseZone = document.getElementById('fLandUseZone');
+  var fLotCategory = document.getElementById('fLotCategory');
+  var fLandSqm = document.getElementById('fLandSqm');
+  var fLandPyPreview = document.getElementById('fLandPyPreview');
+  var fLandSqm2 = document.getElementById('fLandSqm2');
+  var fLandSqm2PyPreview = document.getElementById('fLandSqm2PyPreview');
+  var fLandTotalPreview = document.getElementById('fLandTotalPreview');
+  var fBuildingSqm = document.getElementById('fBuildingSqm');
+  var fBuildingPyPreview = document.getElementById('fBuildingPyPreview');
+  var fTotalFloorSqm = document.getElementById('fTotalFloorSqm');
+  var fTotalFloorPyPreview = document.getElementById('fTotalFloorPyPreview');
+  var fBuiltYear = document.getElementById('fBuiltYear');
+  var fCeilingHeight = document.getElementById('fCeilingHeight');
+  var fBuildingUse = document.getElementById('fBuildingUse');
+  var fWater = document.getElementById('fWater');
+  var fElectricity = document.getElementById('fElectricity');
+  var fHoist = document.getElementById('fHoist');
+  var fDock = document.getElementById('fDock');
+  var fHighway = document.getElementById('fHighway');
+  var fDeposit = document.getElementById('fDeposit');
+  var fRent = document.getElementById('fRent');
+  var fPricePerPy = document.getElementById('fPricePerPy');
+  var fPricePerPyPreview = document.getElementById('fPricePerPyPreview');
+  var fTotalPrice = document.getElementById('fTotalPrice');
+  var fPermitInfo = document.getElementById('fPermitInfo');
+  var fExclusive = document.getElementById('fExclusive');
+  var fHighlight = document.getElementById('fHighlight');
+  var fCaption = document.getElementById('fCaption');
+  var fPhotoAdd = document.getElementById('fPhotoAdd');
+  var photoStrip = document.getElementById('photoStrip');
+
+  var grpBuilding = document.querySelectorAll('.grp-building');
+  var grpElec = document.querySelectorAll('.grp-elec');
+  var grpDock = document.querySelectorAll('.grp-dock');
+  var grpLease = document.querySelectorAll('.grp-lease');
+  var grpSale = document.querySelectorAll('.grp-sale');
+  var grpPermit = document.querySelectorAll('.grp-permit');
+
+  function setGroupDisplay(nodeList, show){
+    nodeList.forEach(function(el){ el.style.display = show ? '' : 'none'; });
+  }
+  var optTradeLease = document.getElementById('optTradeLease');
+  function updateFieldVisibility(){
+    var prop = fPropType.value;
+    var isLandOnly = (prop === '공장용지');
+    // 공장용지는 매매만 취급하므로 임대 선택지를 감춥니다.
+    if (optTradeLease){
+      optTradeLease.hidden = isLandOnly;
+      optTradeLease.disabled = isLandOnly;
+    }
+    if (isLandOnly && fTradeType.value !== '매매') fTradeType.value = '매매';
+    var trade = fTradeType.value;
+    setGroupDisplay(grpBuilding, !isLandOnly);
+    setGroupDisplay(grpElec, !isLandOnly && (prop === '공장' || prop === '지식산업센터'));
+    setGroupDisplay(grpDock, prop === '물류창고');
+    setGroupDisplay(grpPermit, isLandOnly);
+    setGroupDisplay(grpLease, trade === '임대');
+    setGroupDisplay(grpSale, trade === '매매');
+  }
+  fPropType.addEventListener('change', updateFieldVisibility);
+  fTradeType.addEventListener('change', updateFieldVisibility);
+
+  // ---------- m² -> 평 실시간 환산 미리보기 ----------
+  function wireSqmPreview(inputEl, previewEl){
+    function update(){
+      var py = sqmToPy(inputEl.value.trim());
+      previewEl.textContent = py ? ('≈ ' + py + ' 평') : '';
+    }
+    inputEl.addEventListener('input', update);
+    update();
+  }
+  wireSqmPreview(fLandSqm, fLandPyPreview);
+  wireSqmPreview(fLandSqm2, fLandSqm2PyPreview);
+  wireSqmPreview(fBuildingSqm, fBuildingPyPreview);
+  wireSqmPreview(fTotalFloorSqm, fTotalFloorPyPreview);
+
+  // ---------- 지번 1 + 지번 2 토지면적 합산 미리보기 ----------
+  function landTotalSqm(){
+    var n1 = parseFloat(fLandSqm.value.replace(/,/g, '').trim());
+    var n2 = parseFloat(fLandSqm2.value.replace(/,/g, '').trim());
+    var total = (isNaN(n1) ? 0 : n1) + (isNaN(n2) ? 0 : n2);
+    return total || 0;
+  }
+  function updateLandTotal(){
+    var total = landTotalSqm();
+    if (total){
+      fLandTotalPreview.textContent = total.toLocaleString('ko-KR') + ' m² (≈ ' + sqmToPy(total) + ' 평)';
+    } else {
+      fLandTotalPreview.textContent = '주필지·그외필지 면적을 입력하면 자동으로 합산돼요.';
+    }
+  }
+  fLandSqm.addEventListener('input', updateLandTotal);
+  fLandSqm2.addEventListener('input', updateLandTotal);
+  updateLandTotal();
+
+  // ---------- 매매 총금액 -> 평당금액 자동 계산 (토지면적 기준) ----------
+  var PRICE_HINT = '총금액을 입력하면 평당금액이 자동으로 계산돼요.';
+  function updatePricePerPy(){
+    var landPy = parseFloat(sqmToPy(landTotalSqm()));
+    var totalPrice = parseFloat(fTotalPrice.value.replace(/,/g, '').trim());
+    if (landPy && totalPrice){
+      var perPy = Math.round(totalPrice / landPy);
+      fPricePerPy.value = perPy.toLocaleString('ko-KR');
+      fPricePerPyPreview.textContent = '평당금액 ' + perPy.toLocaleString('ko-KR') + '만원 (총면적 ' + landPy + '평 기준 자동 계산)';
+    } else {
+      fPricePerPy.value = '';
+      fPricePerPyPreview.textContent = totalPrice ? '총면적을 입력하면 평당금액이 계산돼요.' : PRICE_HINT;
+    }
+  }
+  fTotalPrice.addEventListener('input', updatePricePerPy);
+  fLandSqm.addEventListener('input', updatePricePerPy);
+  fLandSqm2.addEventListener('input', updatePricePerPy);
+
+  var listingMgmtList = document.getElementById('listingMgmtList');
+  var regionManageList = document.getElementById('regionManageList');
+  var newRegionInput = document.getElementById('newRegionInput');
+  var addRegionBtn = document.getElementById('addRegionBtn');
+  var noticeManageList = document.getElementById('noticeManageList');
+  var newNoticeTitle = document.getElementById('newNoticeTitle');
+  var newNoticeUrl = document.getElementById('newNoticeUrl');
+  var addNoticeBtn = document.getElementById('addNoticeBtn');
+
+  var editingId = null;
+  var currentPhotos = [];
+
+  // ---------- region select ----------
+  function populateRegionSelects(){
+    var regions = SiteData.allRegions();
+    document.querySelectorAll('select.region-select').forEach(function(sel){
+      var prev = sel.value;
+      sel.innerHTML = regions.map(function(r){ return '<option value="' + esc(r) + '">' + esc(r) + '</option>'; }).join('');
+      if (regions.indexOf(prev) !== -1) sel.value = prev;
+    });
+  }
+
+  // ---------- photo manager ----------
+  var MAX_PHOTOS = 3;
+  var MAX_DIMENSION = 1280;
+  var JPEG_QUALITY = 0.7;
+
+  function compressImage(file, maxDim, quality){
+    return new Promise(function(resolve, reject){
+      var reader = new FileReader();
+      reader.onload = function(ev){
+        var img = new Image();
+        img.onload = function(){
+          var w = img.width, h = img.height;
+          if (w > maxDim || h > maxDim){
+            if (w >= h){ h = Math.round(h * maxDim / w); w = maxDim; }
+            else { w = Math.round(w * maxDim / h); h = maxDim; }
+          }
+          var canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = function(){ reject(new Error('이미지를 불러올 수 없어요.')); };
+        img.src = ev.target.result;
+      };
+      reader.onerror = function(){ reject(new Error('파일을 읽을 수 없어요.')); };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderPhotoStrip(){
+    if (currentPhotos.length === 0){
+      photoStrip.innerHTML = '';
+      return;
+    }
+    photoStrip.innerHTML = currentPhotos.map(function(src, i){
+      return '<div class="photo-thumb"><img src="' + src + '" alt="사진 ' + (i+1) + '"><button type="button" data-remove-photo="' + i + '">✕</button></div>';
+    }).join('');
+  }
+  photoStrip.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-remove-photo]');
+    if (!btn) return;
+    var idx = Number(btn.dataset.removePhoto);
+    currentPhotos.splice(idx, 1);
+    renderPhotoStrip();
+  });
+  fPhotoAdd.addEventListener('change', function(){
+    var files = Array.prototype.slice.call(fPhotoAdd.files || []);
+    if (!files.length) return;
+
+    var room = MAX_PHOTOS - currentPhotos.length;
+    if (room <= 0){
+      alert('사진은 매물당 최대 ' + MAX_PHOTOS + '장까지만 추가할 수 있어요. 기존 사진을 먼저 지워주세요.');
+      fPhotoAdd.value = '';
+      return;
+    }
+    if (files.length > room){
+      alert('사진은 매물당 최대 ' + MAX_PHOTOS + '장까지만 추가할 수 있어요. 앞의 ' + room + '장만 추가할게요.');
+      files = files.slice(0, room);
+    }
+
+    fPhotoAdd.disabled = true;
+    Promise.all(files.map(function(file){ return compressImage(file, MAX_DIMENSION, JPEG_QUALITY); }))
+      .then(function(results){
+        results.forEach(function(dataUrl){ currentPhotos.push(dataUrl); });
+        renderPhotoStrip();
+      })
+      .catch(function(err){
+        console.error('사진 처리 오류:', err);
+        alert('사진을 처리하는 중 문제가 생겼어요. 다른 사진으로 다시 시도해주세요.');
+      })
+      .then(function(){
+        fPhotoAdd.disabled = false;
+        fPhotoAdd.value = '';
+      });
+  });
+
+  // ---------- listing management list ----------
+  function renderListingMgmt(){
+    var list = SiteData.getListings();
+    if (list.length === 0){
+      listingMgmtList.innerHTML = '<p class="empty-hint">등록된 매물이 없어요.</p>';
+      return;
+    }
+    listingMgmtList.innerHTML = list.map(function(item){
+      var thumb = (item.photos && item.photos[0])
+        ? '<img src="' + item.photos[0] + '" alt="' + esc(item.title) + '">'
+        : '';
+      return (
+        '<div class="mgmt-row">' +
+          '<div class="mgmt-thumb">' + thumb + '</div>' +
+          '<div class="mgmt-info">' +
+            '<h4>' + esc(item.title) + (item.exclusive ? ' · 전속' : '') + '</h4>' +
+            '<p>' + esc(item.region) + ' · ' + esc(item.tradeType) + ' · 사진 ' + ((item.photos || []).length) + '장</p>' +
+          '</div>' +
+          '<div class="mgmt-actions">' +
+            '<button type="button" data-edit-id="' + esc(item.id) + '">수정</button>' +
+            '<button type="button" data-delete-id="' + esc(item.id) + '">삭제</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  // ---------- add / edit form ----------
+  function resetFormToAddMode(){
+    editingId = null;
+    form.reset();
+    currentPhotos = [];
+    renderPhotoStrip();
+    formTitle.textContent = '매물 등록';
+    formSubmitBtn.textContent = '매물 등록';
+    cancelEditBtn.style.display = 'none';
+    populateRegionSelects();
+    updateFieldVisibility();
+    if (fLandPyPreview) fLandPyPreview.textContent = '';
+    if (fLandSqm2PyPreview) fLandSqm2PyPreview.textContent = '';
+    updateLandTotal();
+    if (fBuildingPyPreview) fBuildingPyPreview.textContent = '';
+    if (fTotalFloorPyPreview) fTotalFloorPyPreview.textContent = '';
+    updatePricePerPy();
+  }
+  cancelEditBtn.addEventListener('click', resetFormToAddMode);
+
+  function buildPriceDisplay(tradeType, deposit, rent, pricePerPy, totalPrice){
+    if (tradeType === '임대'){
+      if (deposit && rent) return deposit + ' / ' + rent + ' 만원';
+      if (deposit) return '보증금 ' + deposit + '만원';
+      if (rent) return '월 ' + rent + '만원';
+      return '';
+    }
+    if (totalPrice) return totalPrice + '만원';
+    if (pricePerPy) return '평당 ' + pricePerPy + '만원';
+    return '';
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    try {
+      var region = fRegion.value;
+      var title = fTitle.value.trim();
+      var tradeType = fTradeType.value;
+      var propType = fPropType.value;
+      var deposit = fDeposit.value.trim();
+      var rent = fRent.value.trim();
+      var pricePerPy = fPricePerPy.value.trim();
+      var totalPrice = fTotalPrice.value.trim();
+      var priceDisplay = buildPriceDisplay(tradeType, deposit, rent, pricePerPy, totalPrice);
+
+      if (!title){ alert('주소를 입력해주세요.'); return; }
+
+      var landSqm = fLandSqm.value.trim();
+      var landSqm2 = fLandSqm2.value.trim();
+      var buildingSqm = fBuildingSqm.value.trim();
+      var totalFloorSqm = fTotalFloorSqm.value.trim();
+      var landSqmTotalNum = landTotalSqm();
+      var landSqmTotal = landSqmTotalNum ? landSqmTotalNum.toString() : '';
+      var landPy = sqmToPy(landSqmTotal);
+      var buildingPy = sqmToPy(buildingSqm);
+      var totalFloorPy = sqmToPy(totalFloorSqm);
+
+      var list = SiteData.getListings();
+      var data = {
+        region: region,
+        tradeType: tradeType,
+        propType: propType,
+        listingNo: fListingNo.value.trim(),
+        title: title,
+        address: fAddress.value.trim(),
+        address2: fAddress2.value.trim(),
+        landUseZone: fLandUseZone.value.trim(),
+        lotCategory: fLotCategory.value.trim(),
+        landSqm: landSqm,
+        landSqm2: landSqm2,
+        landSqmTotal: landSqmTotal,
+        landPy: landPy ? (landPy + '평') : '',
+        buildingSqm: buildingSqm,
+        buildingPy: buildingPy ? (buildingPy + '평') : '',
+        totalFloorSqm: totalFloorSqm,
+        totalFloorPy: totalFloorPy ? (totalFloorPy + '평') : '',
+        builtYear: fBuiltYear.value.trim(),
+        ceilingHeight: fCeilingHeight.value.trim(),
+        buildingUse: fBuildingUse.value.trim(),
+        water: fWater.value.trim(),
+        electricity: fElectricity.value.trim(),
+        hoist: fHoist.value.trim(),
+        dock: fDock.value.trim(),
+        highway: fHighway.value.trim(),
+        deposit: deposit,
+        rent: rent,
+        pricePerPy: pricePerPy,
+        totalPrice: totalPrice,
+        permitInfo: fPermitInfo.value.trim(),
+        price: priceDisplay,
+        exclusive: fExclusive.checked,
+        highlight: fHighlight.checked,
+        caption: fCaption.value.trim(),
+        photos: currentPhotos.slice()
+      };
+
+      if (editingId){
+        var idx = -1;
+        for (var i = 0; i < list.length; i++){ if (list[i].id === editingId){ idx = i; break; } }
+        if (idx !== -1){
+          data.id = list[idx].id;
+          list[idx] = data;
+        } else {
+          data.id = 'c' + Date.now();
+          list.unshift(data);
+        }
+      } else {
+        data.id = 'c' + Date.now();
+        list.unshift(data);
+      }
+
+      SiteData.saveListings(list);
+      var wasEdit = !!editingId;
+      renderListingMgmt();
+      resetFormToAddMode();
+      alert(wasEdit ? '매물 정보를 수정했어요.' : '매물이 등록됐어요. 홈페이지에서 바로 확인해보세요.');
+    } catch (err) {
+      console.error('매물 등록 중 오류:', err);
+      var isQuota = err && (err.name === 'QuotaExceededError' || /quota/i.test(err.message || ''));
+      if (isQuota){
+        alert(
+          '저장 공간이 가득 찼어요. 등록된 매물 사진들의 용량이 브라우저 저장 한도를 넘었어요.\n\n' +
+          '이렇게 해보세요:\n' +
+          '1) 이번 매물의 사진 수를 줄여서 다시 등록\n' +
+          '2) "등록된 매물 목록"에서 사진이 많은 오래된 매물을 삭제한 뒤 다시 시도\n\n' +
+          '※ 지금은 서버 없이 브라우저에만 저장하는 데모라 용량 한도가 있어요.'
+        );
+      } else {
+        alert('매물을 등록하는 중 문제가 생겼어요. 화면을 새로고침한 뒤 다시 시도해주세요.\n(오류: ' + (err && err.message ? err.message : err) + ')');
+      }
+    }
+  });
+
+  // ---------- delegated clicks ----------
+  document.addEventListener('click', function(e){
+    var editBtn = e.target.closest('[data-edit-id]');
+    if (editBtn){
+      var item = SiteData.getListings().filter(function(x){ return x.id === editBtn.dataset.editId; })[0];
+      if (!item) return;
+      editingId = item.id;
+      populateRegionSelects();
+      fTradeType.value = item.tradeType;
+      fPropType.value = item.propType || '공장';
+      fRegion.value = item.region;
+      fListingNo.value = item.listingNo || '';
+      fTitle.value = item.title;
+      fAddress.value = item.address || '';
+      fAddress2.value = item.address2 || '';
+      fLandUseZone.value = item.landUseZone || '';
+      fLotCategory.value = item.lotCategory || '';
+      fLandSqm.value = item.landSqm || '';
+      fLandSqm2.value = item.landSqm2 || '';
+      fBuildingSqm.value = item.buildingSqm || '';
+      fTotalFloorSqm.value = item.totalFloorSqm || '';
+      if (fLandPyPreview) fLandPyPreview.textContent = item.landSqm ? ('≈ ' + sqmToPy(item.landSqm) + ' 평') : '';
+      if (fLandSqm2PyPreview) fLandSqm2PyPreview.textContent = item.landSqm2 ? ('≈ ' + sqmToPy(item.landSqm2) + ' 평') : '';
+      updateLandTotal();
+      if (fBuildingPyPreview) fBuildingPyPreview.textContent = item.buildingSqm ? ('≈ ' + sqmToPy(item.buildingSqm) + ' 평') : (item.buildingPy ? '기존 값: ' + item.buildingPy : '');
+      if (fTotalFloorPyPreview) fTotalFloorPyPreview.textContent = item.totalFloorSqm ? ('≈ ' + sqmToPy(item.totalFloorSqm) + ' 평') : (item.totalFloorPy ? '기존 값: ' + item.totalFloorPy : '');
+      fBuiltYear.value = item.builtYear || '';
+      fCeilingHeight.value = item.ceilingHeight || '';
+      fBuildingUse.value = item.buildingUse || '';
+      fWater.value = item.water || '';
+      fElectricity.value = item.electricity || '';
+      fHoist.value = item.hoist || '';
+      fDock.value = item.dock || '';
+      fHighway.value = item.highway || '';
+      fDeposit.value = item.deposit || '';
+      fRent.value = item.rent || '';
+      fPricePerPy.value = item.pricePerPy || '';
+      fTotalPrice.value = item.totalPrice || '';
+      fPermitInfo.value = item.permitInfo || '';
+      fExclusive.checked = !!item.exclusive;
+      fHighlight.checked = !!item.highlight;
+      fCaption.value = item.caption || '';
+      currentPhotos = (item.photos || []).slice();
+      renderPhotoStrip();
+      updateLandTotal();
+      updatePricePerPy();
+      updateFieldVisibility();
+      formTitle.textContent = '매물 수정';
+      formSubmitBtn.textContent = '수정 완료';
+      cancelEditBtn.style.display = 'inline-block';
+      form.scrollIntoView({behavior:'smooth', block:'start'});
+      return;
+    }
+
+    var delBtn = e.target.closest('[data-delete-id]');
+    if (delBtn){
+      if (!confirm('이 매물을 삭제할까요?')) return;
+      var list = SiteData.getListings().filter(function(x){ return x.id !== delBtn.dataset.deleteId; });
+      SiteData.saveListings(list);
+      renderListingMgmt();
+      if (editingId === delBtn.dataset.deleteId) resetFormToAddMode();
+      return;
+    }
+
+    var regionDelBtn = e.target.closest('[data-del-region]');
+    if (regionDelBtn){
+      var name = regionDelBtn.dataset.delRegion;
+      if (!confirm('"' + name + '" 지역을 삭제할까요? 이 지역으로 등록된 매물은 남아있지만, 지역 선택 목록에서는 사라져요.')) return;
+      var regions = SiteData.getCustomRegions().filter(function(r){ return r !== name; });
+      SiteData.saveCustomRegions(regions);
+      renderRegionManageList();
+      populateRegionSelects();
+      return;
+    }
+
+    var noticeDelBtn = e.target.closest('[data-del-notice]');
+    if (noticeDelBtn){
+      var id = noticeDelBtn.dataset.delNotice;
+      var notices = SiteData.getNotices().filter(function(n){ return n.id !== id; });
+      SiteData.saveNotices(notices);
+      renderNoticeManageList();
+      return;
+    }
+  });
+
+  // ---------- region management ----------
+  function renderRegionManageList(){
+    var regions = SiteData.getCustomRegions();
+    if (regions.length === 0){
+      regionManageList.innerHTML = '<p class="empty-hint">아직 추가한 지역이 없어요.</p>';
+      return;
+    }
+    regionManageList.innerHTML = regions.map(function(r){
+      return '<div class="region-manage-row"><span>' + esc(r) + '</span><button type="button" class="row-del" data-del-region="' + esc(r) + '">삭제</button></div>';
+    }).join('');
+  }
+  addRegionBtn.addEventListener('click', function(){
+    var val = newRegionInput.value.trim();
+    if (!val) return;
+    if (SiteData.allRegions().indexOf(val) !== -1){ alert('이미 있는 지역이에요.'); return; }
+    var regions = SiteData.getCustomRegions();
+    regions.push(val);
+    SiteData.saveCustomRegions(regions);
+    newRegionInput.value = '';
+    renderRegionManageList();
+    populateRegionSelects();
+  });
+
+  // ---------- notice management ----------
+  function renderNoticeManageList(){
+    var notices = SiteData.getNotices();
+    if (notices.length === 0){
+      noticeManageList.innerHTML = '<p class="empty-hint">등록된 공지가 없어요.</p>';
+      return;
+    }
+    noticeManageList.innerHTML = notices.map(function(n){
+      return '<div class="notice-manage-row"><span class="nm-title">' + esc(n.title) + '</span>' +
+        (n.url ? '<span class="nm-url">' + esc(n.url) + '</span>' : '') +
+        '<button type="button" class="row-del" data-del-notice="' + esc(n.id) + '">삭제</button></div>';
+    }).join('');
+  }
+  addNoticeBtn.addEventListener('click', function(){
+    var title = newNoticeTitle.value.trim();
+    var url = newNoticeUrl.value.trim();
+    if (!title){ alert('공지 제목을 입력해주세요.'); return; }
+    var notices = SiteData.getNotices();
+    notices.unshift({ id: 'n' + Date.now(), title: title, url: url });
+    SiteData.saveNotices(notices);
+    newNoticeTitle.value = '';
+    newNoticeUrl.value = '';
+    renderNoticeManageList();
+  });
+
+  // ---------- init ----------
+  SiteData.initAll();
+  renderPhotoStrip();
+  updateFieldVisibility();
+})();
+</script>
+</body>
+</html>

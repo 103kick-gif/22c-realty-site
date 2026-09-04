@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>22세기 부동산 | 대구 공장·창고·용지 전문</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<style>
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2') format('woff2-variations');
+  font-weight: 45 920;
+}
+
+:root{
+  --paper:#F3F0E7;
+  --paper-dim:#ECE7D9;
+  --ink:#1E1B16;
+  --steel:#726C5E;
+  --line:#D9D2BE;
+  --red:#D3401C;
+  --red-dark:#A62F12;
+  --white:#FFFFFF;
+  --gold:#C89B3C;
+  --gold-dark:#A87F2C;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+section[id], #map-finder{scroll-margin-top:86px;}
+body{
+  font-family:'Pretendard', -apple-system, sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit; text-decoration:none; cursor:pointer;}
+button{font-family:inherit; cursor:pointer; border:none;}
+img,svg{display:block;}
+.wrap{max-width:1240px; margin:0 auto; padding:0 32px;}
+
+/* ---------- HEADER ---------- */
+header{
+  position:sticky; top:0; z-index:50;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 32px; max-width:1240px; margin:0 auto;
+}
+.logo{display:flex; align-items:center; gap:12px;}
+.header-left{display:flex; align-items:center; gap:44px;}
+.logo-mark{
+  width:44px; height:44px; background:var(--ink);
+  color:var(--white); display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:19px; letter-spacing:-1px;
+  clip-path: polygon(0 0, 100% 0, 100% 76%, 76% 100%, 0 100%);
+}
+.logo-text{display:flex; flex-direction:column; line-height:1.2;}
+.logo-text b{font-size:17px; font-weight:800; letter-spacing:-0.3px;}
+.logo-text span{font-size:10.5px; color:var(--steel); letter-spacing:0.5px;}
+
+/* 메뉴별 고유 색 (빠른찾기 표 머리글도 같은 색을 씁니다) */
+[data-cat="lease"]{--cat:#1F6F5C;}
+[data-cat="sale"]{--cat:#C0392B;}
+[data-cat="warehouse"]{--cat:#1F4E79;}
+[data-cat="land"]{--cat:#A9761B;}
+[data-cat="wish"]{--cat:#6B3FA0;}
+
+nav{display:flex; gap:8px; font-size:14.5px; font-weight:600;}
+nav a{
+  position:relative; padding:8px 14px; color:var(--ink); opacity:0.88;
+  border:1px solid var(--line); border-bottom:3px solid var(--cat, var(--line));
+  background:var(--white);
+}
+nav a:hover{opacity:1; color:var(--cat, var(--red)); background:var(--paper-dim);}
+nav a.active{
+  opacity:1; color:var(--white); background:var(--cat, var(--red));
+  border-color:var(--cat, var(--red));
+}
+nav a.active:hover{color:var(--white); background:var(--cat, var(--red));}
+
+.header-right{display:flex; align-items:center; gap:22px;}
+.tel{font-size:15.5px; font-weight:800; letter-spacing:-0.2px;}
+.tel span{color:var(--red);}
+.cta-btn{
+  background:var(--ink); color:var(--white); font-size:13.5px; font-weight:700;
+  padding:11px 20px;
+}
+.cta-btn:hover{background:var(--red);}
+.admin-link{
+  font-size:12px; font-weight:700; color:var(--steel);
+  border:1px solid var(--line); padding:7px 12px;
+}
+.admin-link:hover{color:var(--red); border-color:var(--red);}
+
+.notice-bar{background:var(--ink); border-bottom:1px solid #3A352C;}
+.notice-bar-inner{display:flex; align-items:center; gap:16px; padding:9px 32px; font-size:12.5px;}
+.notice-label{
+  background:var(--red); color:var(--white); font-weight:700; font-size:11px;
+  padding:3px 8px; flex-shrink:0;
+}
+.notice-list{list-style:none; display:flex; gap:26px; overflow-x:auto; color:#D8D2C2;}
+.notice-list li{white-space:nowrap; display:flex; align-items:center; gap:8px;}
+.notice-list a{color:#D8D2C2; font-weight:600;}
+.notice-list a:hover{color:var(--white);}
+.notice-del{
+  background:none; border:none; color:#7d7869; font-size:11px; cursor:pointer;
+}
+.notice-del:hover{color:var(--red);}
+
+@media (max-width:900px){
+  nav{display:none;}
+}
+
+/* ---------- SPLASH (first screen) ---------- */
+.splash{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  background:var(--paper); padding:48px 24px;
+}
+.splash-inner{width:100%; max-width:1240px;}
+.splash-top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:26px;}
+.splash-logo{display:flex; align-items:center; gap:12px;}
+.splash-about-tab{
+  background:var(--red); color:var(--white); font-size:12.5px; font-weight:700;
+  padding:9px 18px; flex-shrink:0; margin-top:4px;
+}
+.splash-about-tab:hover{background:var(--red-dark);}
+.splash-hero{border-top:1px solid var(--line);}
+.splash-footer{
+  text-align:center; padding:26px 12px 6px; font-size:12.5px; color:var(--steel); line-height:1.9;
+}
+
+/* ---------- HERO : signature 5-panel identity ---------- */
+.hero{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  border-bottom:1px solid var(--line);
+}
+.hero-panel{
+  position:relative;
+  min-height:420px;
+  display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+  padding:34px 12px 26px;
+  border-right:1px solid var(--line);
+  overflow:hidden;
+  transition:background .25s ease;
+}
+.hero-panel:last-child{border-right:none;}
+.hero-panel .char-stack{
+  font-size:68px;
+  font-weight:800;
+  letter-spacing:-1px;
+  color:var(--ink);
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:color .25s ease;
+}
+.hero-panel .label{
+  font-size:15px; font-weight:700; letter-spacing:-0.2px;
+  padding-top:22px; border-top:1px solid var(--line);
+  width:100%; text-align:center;
+  transition:color .25s ease, border-color .25s ease;
+}
+.hero-panel:hover{background:var(--ink);}
+.hero-panel:hover .char-stack{color:var(--paper);}
+.hero-panel:hover .label{color:var(--paper); border-color:#3a352c;}
+.hero-panel.active{background:var(--ink);}
+.hero-panel.active .char-stack{color:var(--paper);}
+.hero-panel.active .label{color:var(--paper); border-color:#3a352c;}
+.hero-panel.featured{background:var(--red); border-right-color:var(--red);}
+.hero-panel.featured .char-stack{color:var(--white);}
+.hero-panel.featured .label{color:var(--white); border-color:#e8836a;}
+.hero-panel.featured:hover{background:var(--red-dark);}
+
+.hero-panel.pun-highlight{
+  background:var(--gold);
+  border-right-color:var(--gold);
+  transform:translateY(-22px);
+  box-shadow:0 18px 36px -16px rgba(20,18,14,.45);
+  z-index:3;
+}
+.hero-panel.pun-highlight .char-stack{color:var(--white);}
+.hero-panel.pun-highlight .label{color:var(--white); border-color:rgba(255,255,255,.35);}
+.hero-panel.pun-highlight:hover{background:var(--gold-dark);}
+.hero-panel.pun-highlight.active{background:var(--gold-dark);}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:repeat(3,1fr);}
+  .hero-panel:nth-child(3){border-right:none;}
+  .hero-panel{min-height:260px;}
+  .hero-panel .char-stack{font-size:46px;}
+  .hero-panel.pun-highlight{transform:translateY(-12px);}
+}
+@media (max-width:560px){
+  .hero{grid-template-columns:repeat(2,1fr);}
+  .hero-panel:nth-child(2n){border-right:none;}
+  .hero-panel.pun-highlight{transform:translateY(-8px);}
+}
+
+/* ---------- SECTION HEADS ---------- */
+.section{padding:90px 0;}
+.section-head{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-bottom:44px; gap:24px; flex-wrap:wrap;
+}
+.section-head h2{
+  font-size:28px; font-weight:800; letter-spacing:-0.5px;
+}
+.section-head p{
+  color:var(--steel); font-size:14.5px; margin-top:8px; max-width:420px;
+}
+.view-all{font-size:13.5px; font-weight:700; border-bottom:2px solid var(--ink); padding-bottom:2px;}
+.view-all:hover{color:var(--red); border-color:var(--red);}
+
+.filter-status{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  background:var(--paper-dim); border-left:3px solid var(--red);
+  padding:12px 16px; margin-bottom:20px; font-size:13px; font-weight:600;
+}
+.filter-status b{color:var(--red);}
+.filter-status a{font-weight:700; text-decoration:underline; margin-left:auto;}
+
+/* ---------- LISTINGS (card style) ---------- */
+.listing-grid2{
+  display:grid; grid-template-columns:1fr 1fr; gap:22px;
+}
+.listing-grid2.single{grid-template-columns:1fr; max-width:600px; margin:0 auto;}
+@media (max-width:820px){
+  .listing-grid2{grid-template-columns:1fr;}
+}
+
+.listing-card2{
+  background:var(--white); border:1px solid var(--line);
+  cursor:pointer; transition:box-shadow .15s ease, transform .15s ease;
+}
+.listing-card2:hover{box-shadow:0 14px 28px -18px rgba(30,27,22,.35);}
+.listing-card2.highlight{background:#FBE8DA;}
+
+.lc2-header{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  background:var(--paper-dim); padding:15px 20px; border-bottom:1px solid var(--line);
+}
+.listing-card2.highlight .lc2-header{background:#F5D0B0;}
+.lc2-header h3{font-size:16.5px; font-weight:800; letter-spacing:-0.2px;}
+.lc2-badge{
+  flex-shrink:0; background:var(--red); color:var(--white);
+  font-size:11px; font-weight:800; padding:4px 9px; letter-spacing:0.2px;
+}
+
+.lc2-body{display:flex; align-items:stretch;}
+.lc2-photo-col{
+  width:40%; min-width:160px; flex-shrink:0; display:flex; flex-direction:column;
+  border-right:1px solid var(--line);
+}
+.lc2-photo{
+  width:100%; aspect-ratio:4/3; background:var(--paper-dim);
+  position:relative; overflow:hidden;
+}
+.lc2-listing-no{
+  background:var(--paper-dim); border-top:1px solid var(--line);
+  padding:6px 8px; text-align:center; font-size:11.5px; font-weight:700; color:var(--steel);
+}
+.lc2-listing-no b{color:var(--ink); font-weight:800;}
+.lc2-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+.lc2-photo-empty{
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  color:var(--steel); font-size:12px;
+}
+.lc2-photo-count{
+  position:absolute; bottom:8px; right:8px;
+  background:rgba(20,18,14,.7); color:var(--white); font-size:11px; padding:3px 8px;
+}
+.photo-watermark{
+  position:absolute; left:50%; bottom:10px; transform:translateX(-50%);
+  background:rgba(20,18,14,.55); color:var(--white); text-align:center;
+  padding:5px 14px; pointer-events:none; white-space:nowrap;
+}
+.wm-brand{display:block; font-size:11px; font-weight:800; letter-spacing:0.2px;}
+.wm-type{display:block; font-size:9.5px; font-weight:600; opacity:.85; margin-top:1px;}
+
+.lc2-specs{
+  flex:1; min-width:0; padding:8px 20px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.lc2-spec-row{
+  display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+  padding:7px 0; border-bottom:1px dashed var(--line); font-size:13.5px;
+}
+.lc2-spec-row:last-child{border-bottom:none;}
+.lc2-spec-label{color:var(--steel); font-weight:600; flex-shrink:0;}
+.lc2-spec-value{font-weight:800; color:var(--red); text-align:right;}
+
+.lc2-caption{
+  text-align:center; padding:12px 16px; font-size:13px; font-weight:600; color:var(--steel);
+  border-top:1px solid var(--line); background:var(--paper);
+}
+.listing-card2.highlight .lc2-caption{background:#F5D0B0; color:var(--ink);}
+
+@media (max-width:560px){
+  .lc2-body{flex-direction:column;}
+  .lc2-photo-col{width:100%; border-right:none; border-bottom:1px solid var(--line);}
+  .lc2-photo{width:100%; aspect-ratio:16/10;}
+}
+
+/* ---------- PHOTO MODAL (detail sheet, NH-style light layout) ---------- */
+.photo-modal{
+  position:fixed; inset:0; background:rgba(18,16,12,.72); z-index:300;
+  display:none; align-items:center; justify-content:center; padding:28px;
+}
+.photo-modal.open{display:flex;}
+.photo-modal-inner.detail-sheet{
+  position:relative; max-width:1040px; width:100%; max-height:92vh;
+  background:var(--white); overflow-y:auto; padding:26px 30px 30px;
+}
+.photo-modal-close{
+  position:absolute; top:14px; right:14px; z-index:5;
+  width:34px; height:34px; background:var(--paper-dim); color:var(--ink);
+  border:none; font-size:16px; cursor:pointer; font-weight:700;
+}
+.photo-modal-close:hover{background:var(--red); color:var(--white);}
+
+.detail-topbar{
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  padding-bottom:16px; margin-bottom:20px; border-bottom:2px solid var(--ink);
+}
+.detail-listing-no{font-size:16px; font-weight:800;}
+.detail-topbar-actions{display:flex; gap:10px;}
+.detail-action-btn{
+  background:var(--paper-dim); color:var(--ink); border:1px solid var(--line);
+  font-size:12.5px; font-weight:700; padding:9px 16px; white-space:nowrap;
+}
+.detail-action-btn:hover{border-color:var(--red); color:var(--red);}
+.detail-action-btn.active{background:var(--red); color:var(--white); border-color:var(--red);}
+
+.modal-media{background:var(--paper-dim); margin-top:22px;}
+.modal-photo-row{display:grid; grid-template-columns:repeat(3, 1fr); gap:2px;}
+.modal-photo-item{position:relative; aspect-ratio:4/3; overflow:hidden; cursor:zoom-in; background:var(--paper-dim);}
+.modal-photo-item img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .2s ease;}
+.modal-photo-item:hover img{transform:scale(1.04);}
+.modal-media-empty{
+  grid-column:1/-1; padding:40px; display:flex; align-items:center; justify-content:center;
+  color:var(--steel); font-size:13px; background:var(--paper-dim);
+}
+
+.photo-zoom-overlay{
+  position:fixed; inset:0; background:rgba(10,9,7,.94); z-index:400;
+  display:none; align-items:center; justify-content:center; padding:30px;
+}
+.photo-zoom-overlay.open{display:flex;}
+.photo-zoom-overlay img{max-width:100%; max-height:100%; object-fit:contain;}
+.photo-zoom-close{
+  position:absolute; top:20px; right:24px; width:38px; height:38px;
+  background:rgba(255,255,255,.15); color:var(--white); border:none; font-size:18px; cursor:pointer;
+}
+.photo-zoom-close:hover{background:var(--red);}
+
+.detail-title-row{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+.detail-title-row h3{font-size:19px; font-weight:800; letter-spacing:-0.3px;}
+
+.detail-groups{
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  border:1px solid var(--line); margin-bottom:18px;
+}
+.detail-groups.two-col{grid-template-columns:repeat(2, 1fr);}
+.detail-group{border-right:1px solid var(--line);}
+.detail-group:last-child{border-right:none;}
+.detail-group-title{
+  background:var(--paper-dim); text-align:center; font-weight:800; font-size:13px;
+  padding:10px; border-bottom:1px solid var(--line);
+}
+.detail-group-row{
+  display:flex; justify-content:space-between; gap:8px;
+  padding:9px 14px; border-bottom:1px solid var(--line); font-size:12.5px;
+}
+.detail-group-row:last-child{border-bottom:none;}
+.detail-group-label{color:var(--steel); font-weight:600; flex-shrink:0;}
+.detail-group-value{font-weight:800; color:var(--red); text-align:right;}
+.detail-group-row.is-sub{padding-top:6px; padding-bottom:6px; background:var(--paper-dim);}
+.detail-group-row.is-sub .detail-group-label{font-weight:600; font-size:12px; padding-left:12px; position:relative;}
+.detail-group-row.is-sub .detail-group-label .sub-mark{position:absolute; left:2px; color:var(--steel);}
+.detail-group-row.is-sub .detail-group-value{font-weight:700; font-size:12px; color:var(--ink);}
+.detail-feature-row{padding:9px 14px; border-bottom:1px solid var(--line);}
+.detail-feature-row:last-child{border-bottom:none;}
+.detail-feature-row .detail-group-label{display:block; margin-bottom:8px;}
+.detail-feature-text{font-size:12.5px; color:var(--ink); line-height:1.8; white-space:pre-line;}
+
+.modal-caption{
+  font-size:13.5px; color:var(--steel); line-height:1.8; white-space:pre-line;
+  background:var(--paper-dim); padding:16px; border-left:3px solid var(--red); margin-bottom:14px;
+}
+.modal-photo-count{font-size:11.5px; color:var(--steel); margin-bottom:6px;}
+
+.detail-agent{
+  display:grid; grid-template-columns:repeat(4, 1fr);
+  border:1px solid var(--line); margin-top:24px;
+}
+.detail-agent-cell{
+  display:flex; flex-direction:column; gap:4px; padding:12px 14px; border-right:1px solid var(--line);
+}
+.detail-agent-cell:last-child{border-right:none;}
+.da-label{font-size:11px; font-weight:700; color:var(--steel); background:var(--paper-dim); padding:4px 8px; align-self:flex-start;}
+.da-value{font-size:13px; font-weight:700; color:var(--ink);}
+
+@media (max-width:760px){
+  .photo-modal{padding:0;}
+  .photo-modal-inner.detail-sheet{max-height:100vh; height:100%; max-width:100%; padding:20px 16px 24px;}
+  .detail-groups, .detail-groups.two-col{grid-template-columns:1fr;}
+  .detail-group{border-right:none; border-bottom:1px solid var(--line);}
+  .detail-agent{grid-template-columns:repeat(2, 1fr);}
+  .modal-photo-row{grid-template-columns:1fr;}
+}
+
+/* ---------- MAP FINDER ---------- */
+.no-results{
+  text-align:center; font-size:14px; color:var(--steel);
+  padding:22px; border:1px dashed var(--line); margin-top:24px;
+}
+.no-results a{color:var(--red); font-weight:700; border-bottom:1px solid var(--red);}
+
+.map-finder{background:var(--paper-dim); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.map-finder-grid{
+  display:grid; grid-template-columns:1.1fr 1fr; gap:1px;
+  background:var(--line); border:1px solid var(--line);
+}
+.map-card, .quick-search-card{background:var(--white); padding:32px;}
+.map-caption{font-size:13px; font-weight:700; color:var(--steel); margin-bottom:14px;}
+.daegu-map{width:100%; height:auto; display:block;}
+.region-shape{
+  fill:var(--paper-dim); stroke:var(--white); stroke-width:2;
+  cursor:pointer; transition:fill .15s ease;
+}
+.region-shape:hover{fill:#f0c9b8;}
+.region-shape.active{fill:var(--red);}
+.region-shape-outer{fill:var(--paper); stroke-dasharray:4 3;}
+.region-shape-outer:hover{fill:#f0c9b8;}
+.region-shape-outer.active{fill:var(--red);}
+.region-label{
+  font-size:13px; font-weight:700; fill:var(--ink); pointer-events:none;
+  text-anchor:middle;
+}
+.region-label.label-active{fill:var(--white);}
+
+.nearby-chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; border-top:1px solid var(--line); padding-top:16px;}
+.nearby-chip{
+  border:1px solid var(--line); background:var(--paper-dim);
+  font-size:12.5px; font-weight:600; padding:7px 14px; cursor:pointer;
+}
+.nearby-chip:hover{border-color:var(--red); color:var(--red);}
+.nearby-chip.active{background:var(--red); border-color:var(--red); color:var(--white);}
+
+.quick-search-card h3{
+  font-size:19px; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:10px;
+}
+.qs-icon{color:var(--red); font-size:16px;}
+.qs-desc{font-size:12.5px; color:var(--steel); line-height:1.6; margin-bottom:20px;}
+.qs-block-head{
+  font-size:14px; font-weight:700; background:var(--paper-dim);
+  padding:12px 16px; margin-bottom:14px;
+}
+.qs-block-head span{color:var(--red);}
+.qs-table{width:100%; border-collapse:collapse; margin-bottom:18px;}
+.qs-table th{
+  background:var(--ink); color:var(--white); font-size:12.5px; font-weight:700;
+  padding:10px 14px; text-align:left;
+}
+.qs-table td{
+  font-size:13.5px; padding:11px 14px; border-bottom:1px solid var(--line);
+}
+.qs-table td:last-child{width:40px; text-align:center;}
+.qs-table th{background:var(--cat, var(--ink));}
+.qs-table-size th{padding:9px 14px;}
+.qs-table-size th.qs-all-th{text-align:right; width:78px;}
+.qs-all-label{display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:12.5px; font-weight:700; white-space:nowrap;}
+.qs-table input[type="checkbox"]{cursor:pointer;}
+.qs-table td.is-on{background:var(--paper-dim); font-weight:700; color:var(--cat, var(--ink));}
+.qs-table-dual th, .qs-table-dual td{font-size:11.5px; padding:9px 8px;}
+.qs-table-dual th.qs-all-th, .qs-table-dual td.qs-check-cell{width:30px; text-align:center;}
+.qs-table-dual th.qs-all-th .qs-all-label{font-size:11px; gap:4px;}
+.qs-table-dual td.qs-col-split, .qs-table-dual th.qs-col-split{border-left:1px solid var(--line);}
+.qs-table-dual th.qs-col-split{border-left:1px solid rgba(255,255,255,.25);}
+.quick-search-card .qs-block-head{border-left:4px solid var(--cat, var(--red));}
+.qs-hint{font-size:12px; color:var(--steel); margin:-6px 0 16px;}
+.qs-hint b{color:var(--cat, var(--red));}
+.qs-tags{display:flex; gap:18px; font-size:13px; font-weight:600; margin-bottom:20px;}
+.qs-tags label{display:flex; align-items:center; gap:6px; cursor:pointer;}
+.qs-submit{
+  width:100%; background:var(--ink); color:var(--white);
+  font-weight:700; font-size:14.5px; padding:14px;
+}
+.qs-submit:hover{background:var(--red);}
+.qs-btn-row{display:flex; gap:10px;}
+.qs-btn-row button{
+  flex:1; background:var(--ink); color:var(--white); font-weight:700; font-size:14px; padding:14px;
+}
+.qs-btn-row button:hover{background:var(--red);}
+
+@media (max-width:820px){
+  .map-finder-grid{grid-template-columns:1fr;}
+}
+
+/* ---------- REGIONS ---------- */
+.regions{background:var(--ink); color:var(--paper);}
+.regions .section-head h2, .regions .section-head p{color:var(--paper);}
+.regions .section-head p{color:#B7B1A0;}
+.region-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#3A352C;
+}
+.region-item{
+  background:var(--ink); padding:26px 22px; transition:background .2s ease;
+}
+.region-item:hover{background:#2a261f;}
+.region-item .count{font-size:12px; color:var(--red); font-weight:700; margin-bottom:8px;}
+.region-item h4{font-size:16px; font-weight:700;}
+.region-item p{font-size:12.5px; color:#9a927e; margin-top:4px;}
+
+@media (max-width:820px){.region-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ---------- STATS STRIP ---------- */
+.stats{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:1px solid #3A352C;
+}
+.stat{padding:38px 22px; border-right:1px solid #3A352C;}
+.stat:last-child{border-right:none;}
+.stat b{font-size:34px; font-weight:800; display:block;}
+.stat span{font-size:13px; color:#9a927e;}
+
+@media (max-width:700px){.stats{grid-template-columns:1fr;}
+  .stat{border-right:none; border-top:1px solid #3A352C;} .stat:first-child{border-top:none;}}
+
+/* ---------- WISHLIST (찜한매물보기) ---------- */
+.wishlist-empty{text-align:center; font-size:13.5px; color:var(--steel); padding:36px 20px; border:1px dashed var(--line);}
+
+/* ---------- CONTACT CTA ---------- */
+.contact-cta{
+  padding:80px 0; text-align:center;
+}
+.contact-cta h2{font-size:26px; font-weight:800; margin-bottom:14px; letter-spacing:-0.4px;}
+.contact-cta p{color:var(--steel); font-size:15px; margin-bottom:30px;}
+.contact-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+.btn-primary{background:var(--red); color:var(--white); font-weight:700; font-size:14.5px; padding:16px 30px;}
+.btn-primary:hover{background:var(--red-dark);}
+.btn-ghost{background:transparent; color:var(--ink); font-weight:700; font-size:14.5px; padding:16px 30px; border:1px solid var(--line);}
+.btn-ghost:hover{border-color:var(--ink);}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--paper-dim); border-top:1px solid var(--line); padding:48px 0 32px;}
+.footer-grid{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; margin-bottom:32px;}
+.footer-col h5{font-size:13px; font-weight:800; margin-bottom:12px;}
+.footer-col p, .footer-col a{display:block; font-size:13px; color:var(--steel); margin-bottom:6px;}
+.footer-bottom{
+  border-top:1px solid var(--line); padding-top:22px;
+  font-size:12px; color:var(--steel); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+}
+</style>
+</head>
+<body>
+
+<div id="splashScreen" class="splash">
+  <div class="splash-inner">
+    <div class="splash-top">
+      <div class="splash-logo">
+        <div class="logo-mark">22</div>
+        <div class="logo-text">
+          <b>22세기 부동산</b>
+          <span>22C Real Estate Consulting</span>
+        </div>
+      </div>
+      <a class="splash-about-tab" id="splashAboutLink">회사 소개</a>
+    </div>
+
+    <section class="hero splash-hero">
+      <a class="hero-panel" data-trade="임대" data-prop="공장">
+        <span class="char-stack">부</span>
+        <span class="label">공장임대</span>
+      </a>
+      <a class="hero-panel pun-highlight" data-trade="매매" data-prop="공장">
+        <span class="char-stack">22</span>
+        <span class="label">공장매매</span>
+      </a>
+      <a class="hero-panel" data-prop="물류창고">
+        <span class="char-stack">동</span>
+        <span class="label">물류창고</span>
+      </a>
+      <a class="hero-panel pun-highlight" data-prop="공장용지">
+        <span class="char-stack">세기</span>
+        <span class="label">공장용지</span>
+      </a>
+      <a class="hero-panel featured" id="splashAllListingsLink">
+        <span class="char-stack">산</span>
+        <span class="label">찜한매물보기</span>
+      </a>
+    </section>
+
+    <div class="splash-footer">
+      <p>대구시 달서구 구마로230, 한양수자인더팰리시티 상가 104호</p>
+      <p>22세기 부동산 | 등록번호 : 27290 2026-00015 | 대표 이건희 | E-mail : 103kick@naver.com</p>
+      <p>전화 010-8694-1003</p>
+      <p>COPYRIGHT 22C REAL ESTATE ALL RIGHT RESERVED.</p>
+    </div>
+  </div>
+</div>
+
+<div id="siteMain" style="display:none;">
+<header>
+  <div class="header-inner">
+    <div class="header-left">
+      <a class="logo" id="headerLogoLink">
+        <div class="logo-mark">22</div>
+        <div class="logo-text">
+          <b>22세기 부동산</b>
+          <span>22C Real Estate Consulting</span>
+        </div>
+      </a>
+      <nav>
+        <a data-trade="임대" data-prop="공장" data-cat="lease">공장임대</a>
+        <a data-trade="매매" data-prop="공장" data-cat="sale">공장매매</a>
+        <a data-prop="물류창고" data-cat="warehouse">물류창고</a>
+        <a data-prop="공장용지" data-cat="land">공장용지</a>
+        <a id="navWishlistLink" data-cat="wish">찜한매물보기</a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="tel">010.8694.1003</div>
+      <a href="admin.html" target="_blank" rel="noopener" class="admin-link">🔒 매물 관리</a>
+    </div>
+  </div>
+</header>
+
+<div class="notice-bar" id="noticeBar" style="display:none;">
+  <div class="wrap notice-bar-inner">
+    <span class="notice-label">공지</span>
+    <ul id="noticeList" class="notice-list"></ul>
+  </div>
+</div>
+
+<section class="section map-finder" id="map-finder">
+  <div class="wrap">
+    <div class="map-finder-grid">
+      <div class="map-card">
+        <p class="map-caption">대구광역시 · 인근 지역</p>
+        <svg viewBox="-100 0 560 400" class="daegu-map" role="img" aria-label="대구 및 인근 지역 선택 지도">
+          <polygon class="region-shape region-shape-outer" data-region="칠곡군" points="-85,95 -15,85 5,130 -35,155 -90,145" />
+          <polygon class="region-shape region-shape-outer" data-region="성주군" points="-90,145 -35,155 -25,205 -85,220" />
+          <polygon class="region-shape region-shape-outer" data-region="고령군" points="-85,220 -25,205 -5,255 -60,285" />
+          <polygon class="region-shape" data-region="군위군" points="40,20 110,15 130,55 95,80 45,70" />
+          <polygon class="region-shape" data-region="북구" points="150,90 250,70 300,110 280,165 190,175 150,150" />
+          <polygon class="region-shape" data-region="서구" points="95,150 150,150 190,175 175,215 110,215" />
+          <polygon class="region-shape" data-region="중구" points="190,175 235,170 245,205 205,220 175,215" />
+          <polygon class="region-shape" data-region="동구" points="245,205 300,110 380,140 390,220 320,255 250,235" />
+          <polygon class="region-shape" data-region="남구" points="175,215 245,205 250,235 220,260 180,255" />
+          <polygon class="region-shape" data-region="수성구" points="220,260 250,235 320,255 335,310 260,335" />
+          <polygon class="region-shape" data-region="달서구" points="60,215 110,215 175,215 180,255 140,300 75,290" />
+          <polygon class="region-shape" data-region="달성군" points="20,290 75,290 140,300 260,335 240,380 90,385 25,340" />
+          <text x="-45" y="122" class="region-label" data-region="칠곡군">칠곡군</text>
+          <text x="-55" y="182" class="region-label" data-region="성주군">성주군</text>
+          <text x="-45" y="248" class="region-label" data-region="고령군">고령군</text>
+          <text x="85" y="48" class="region-label" data-region="군위군">군위군</text>
+          <text x="215" y="122" class="region-label" data-region="북구">북구</text>
+          <text x="140" y="185" class="region-label" data-region="서구">서구</text>
+          <text x="212" y="197" class="region-label" data-region="중구">중구</text>
+          <text x="320" y="185" class="region-label" data-region="동구">동구</text>
+          <text x="205" y="235" class="region-label" data-region="남구">남구</text>
+          <text x="270" y="290" class="region-label" data-region="수성구">수성구</text>
+          <text x="120" y="255" class="region-label" data-region="달서구">달서구</text>
+          <text x="140" y="350" class="region-label" data-region="달성군">달성군</text>
+        </svg>
+        <div class="nearby-chips" id="nearbyChips"></div>
+      </div>
+
+      <div class="quick-search-card">
+        <h3><span class="qs-icon">◎</span> Quick Search</h3>
+
+        <div class="qs-block">
+          <div class="qs-block-head">선택한 지역 <span id="selectedRegionLabel">전체</span></div>
+        </div>
+
+        <p class="qs-hint">원하는 면적을 체크한 뒤 아래 <b>검색</b> 버튼을 눌러주세요.</p>
+
+        <div id="qsSizeTable"></div>
+
+        <div class="qs-extras" id="qsExtras">
+          <div class="qs-tags">
+            <label><input type="checkbox" class="type-check" value="자원순환시설"> 자원순환시설</label>
+            <label><input type="checkbox" class="type-check" value="클린룸"> 클린룸 설비</label>
+          </div>
+
+          <button class="qs-submit" id="qsSubmit">검색</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="listings">
+  <div class="wrap">
+    <div class="listing-grid2" id="listingsGrid"></div>
+    <p class="no-results" id="noResultsMsg" style="display:none;">등록된 정보가 없습니다.</p>
+  </div>
+</section>
+
+<section class="section wishlist-section" id="wishlist" style="display:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>찜한 매물 목록</h2>
+      </div>
+    </div>
+    <div class="listing-grid2" id="wishlistGrid"></div>
+    <p class="wishlist-empty" id="wishlistEmpty">등록된 정보가 없습니다.</p>
+  </div>
+</section>
+
+<section class="contact-cta" id="about">
+  <div class="wrap">
+    <h2>어떤 공장·창고를 찾으시나요?</h2>
+    <p>전화 한 통이면 조건에 맞는 매물을 바로 안내해 드립니다.</p>
+    <div class="contact-actions">
+      <a href="tel:010-8694-1003" class="btn-primary">010-8694-1003 전화상담</a>
+      <a class="btn-ghost" data-scroll-to="map-finder">매물 의뢰하기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>22세기 부동산</h5>
+        <p>대구시 달서구 구마로230, 한양수자인더팰리시티 상가 104호</p>
+        <p>대표 : 이건희 &nbsp;|&nbsp; 등록번호 : 27290 2026-00015</p>
+      </div>
+      <div class="footer-col">
+        <h5>운영정보</h5>
+        <p>전화 010-8694-1003</p>
+        <a href="mailto:103kick@naver.com">103kick@naver.com</a>
+      </div>
+      <div class="footer-col">
+        <h5>바로가기</h5>
+        <a data-scroll-to="listings">전체 매물</a>
+        <a data-scroll-to="map-finder">지도로 지역 찾기</a>
+        <a data-scroll-to="about">상담 문의</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>COPYRIGHT 22C REAL ESTATE ALL RIGHT RESERVED.</span>
+      <span>본 사이트는 초안(디자인 시안)이며 실제 매물 정보와 다를 수 있습니다.</span>
+    </div>
+  </div>
+</footer>
+</div>
+
+<div class="photo-modal" id="photoModal">
+  <div class="photo-modal-inner detail-sheet">
+    <button type="button" class="photo-modal-close" id="modalClose">✕</button>
+
+    <div class="detail-topbar">
+      <div class="detail-listing-no">물건번호 : <span id="modalListingNo">-</span></div>
+      <div class="detail-topbar-actions">
+        <button type="button" class="detail-action-btn" id="modalFavBtn">☆ 매물찜하기</button>
+        <button type="button" class="detail-action-btn" id="modalPrintBtn">프린트하기</button>
+      </div>
+    </div>
+
+    <div class="detail-body">
+      <div class="detail-title-row">
+        <h3 id="modalTitle"></h3>
+        <span class="lc2-badge" id="modalBadge" style="display:none;">전속</span>
+      </div>
+
+      <div class="detail-groups" id="modalGroups"></div>
+    </div>
+
+    <div class="modal-media">
+      <div class="modal-photo-row" id="modalPhotoRow"></div>
+    </div>
+
+    <div class="detail-agent">
+      <div class="detail-agent-cell"><span class="da-label">담당자정보</span><span class="da-value">이건희</span></div>
+      <div class="detail-agent-cell"><span class="da-label">H.P</span><span class="da-value">010-8694-1003</span></div>
+      <div class="detail-agent-cell"><span class="da-label">E-MAIL</span><span class="da-value">103kick@naver.com</span></div>
+      <div class="detail-agent-cell"><span class="da-label">FAX</span><span class="da-value">-</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="photo-zoom-overlay" id="photoZoomOverlay">
+  <button type="button" class="photo-zoom-close" id="zoomClose">✕</button>
+  <img id="zoomImg" src="" alt="확대 사진">
+</div>
+
+<script src="site-data.js"></script>
+<script>
+// site-data.js 가 같은 폴더에 없으면 화면이 멈추므로, 원인을 눈에 보이게 알려줍니다.
+(function(){
+  if (window.SiteData) return;
+  function show(){
+    var box = document.createElement('div');
+    box.style.cssText = 'position:fixed;left:0;right:0;top:0;z-index:99999;background:#C0392B;color:#fff;' +
+      'padding:16px 20px;font-size:14px;line-height:1.7;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.25);';
+    box.innerHTML = '<b>site-data.js 파일을 찾을 수 없어 사이트가 동작하지 않습니다.</b><br>' +
+      'index.html · admin.html · site-data.js 세 파일을 <u>같은 폴더</u>에 함께 두고 index.html 을 열어주세요.';
+    document.body.appendChild(box);
+  }
+  if (document.body) show(); else document.addEventListener('DOMContentLoaded', show);
+})();
+</script>
+<script>
+(function(){
+  if (!window.SiteData) return;
+  var listingsGrid = document.getElementById('listingsGrid');
+  var noResultsMsg = document.getElementById('noResultsMsg');
+  var selectedLabel = document.getElementById('selectedRegionLabel');
+  var nearbyChipsWrap = document.getElementById('nearbyChips');
+  var noticeBar = document.getElementById('noticeBar');
+  var noticeList = document.getElementById('noticeList');
+
+  var esc = SiteData.esc;
+  var currentRegion = '전체';
+  var currentCategory = null; // { trade, prop, label }
+
+  // 평방미터(m²) -> 평 환산. SiteData.sqmToPy를 쓰되, site-data.js가 최신이 아니어도 동작하도록 로컬 계산도 준비해둬요.
+  function sqmToPy(sqm){
+    if (window.SiteData && typeof SiteData.sqmToPy === 'function'){
+      try { return SiteData.sqmToPy(sqm); } catch (err){ /* fall through to local calc */ }
+    }
+    var n = parseFloat(String(sqm == null ? '' : sqm).replace(/,/g, ''));
+    if (!n || isNaN(n)) return '';
+    return (Math.round((n / 3.3058) * 10) / 10).toString();
+  }
+
+  // ---------- region select (quick search bar) ----------
+  function populateRegionSelects(){
+    var regions = SiteData.allRegions();
+    document.querySelectorAll('select.region-select').forEach(function(sel){
+      var prev = sel.value;
+      sel.innerHTML = regions.map(function(r){ return '<option value="' + esc(r) + '">' + esc(r) + '</option>'; }).join('');
+      if (regions.indexOf(prev) !== -1) sel.value = prev;
+    });
+  }
+
+  // ---------- map / chip selection ----------
+  function updateRegionVisuals(){
+    document.querySelectorAll('.region-shape').forEach(function(s){
+      s.classList.toggle('active', s.dataset.region === currentRegion);
+    });
+    document.querySelectorAll('.region-label').forEach(function(l){
+      l.classList.toggle('label-active', l.dataset.region === currentRegion);
+    });
+    document.querySelectorAll('.nearby-chip').forEach(function(c){
+      c.classList.toggle('active', c.dataset.chipRegion === currentRegion);
+    });
+    if (selectedLabel) selectedLabel.textContent = currentRegion;
+  }
+  function selectRegion(region){
+    currentRegion = (currentRegion === region) ? '전체' : region;
+    updateRegionVisuals();
+  }
+  document.querySelectorAll('.region-shape').forEach(function(shape){
+    shape.addEventListener('click', function(){ selectRegion(shape.dataset.region); });
+  });
+  if (nearbyChipsWrap){
+    nearbyChipsWrap.addEventListener('click', function(e){
+      var chip = e.target.closest('[data-chip-region]');
+      if (!chip) return;
+      selectRegion(chip.dataset.chipRegion);
+    });
+  }
+  function renderNearbyChips(){
+    if (!nearbyChipsWrap) return;
+    var mappedOnSvg = ['칠곡군', '성주군', '고령군'];
+    var regions = SiteData.getCustomRegions().filter(function(r){ return mappedOnSvg.indexOf(r) === -1; });
+    if (regions.length === 0){
+      nearbyChipsWrap.innerHTML = '';
+      nearbyChipsWrap.style.display = 'none';
+      return;
+    }
+    nearbyChipsWrap.style.display = 'flex';
+    nearbyChipsWrap.innerHTML = regions.map(function(r){
+      return '<button type="button" class="nearby-chip" data-chip-region="' + esc(r) + '">' + esc(r) + '</button>';
+    }).join('');
+    updateRegionVisuals();
+  }
+
+  var qsExtras = document.getElementById('qsExtras');
+  function renderQsExtras(category){
+    if (!qsExtras) return;
+    var prop = category ? category.prop : null;
+    if (prop === '물류창고'){
+      qsExtras.innerHTML =
+        '<div class="qs-btn-row">' +
+          '<button type="button" data-qs-action="lease">임대검색</button>' +
+          '<button type="button" data-qs-action="sale">매매검색</button>' +
+        '</div>';
+    } else if (prop === '공장용지'){
+      qsExtras.innerHTML =
+        '<div class="qs-tags">' +
+          '<label><input type="checkbox" class="type-check" value="자원순환시설"> 자원순환시설</label>' +
+          '<label><input type="checkbox" class="type-check" value="원형지"> 원형지</label>' +
+        '</div>' +
+        '<button type="button" class="qs-submit" data-qs-action="search">검색</button>';
+    } else {
+      qsExtras.innerHTML =
+        '<div class="qs-tags">' +
+          '<label><input type="checkbox" class="type-check" value="자원순환시설"> 자원순환시설</label>' +
+          '<label><input type="checkbox" class="type-check" value="클린룸"> 클린룸 설비</label>' +
+        '</div>' +
+        '<button type="button" class="qs-submit" data-qs-action="search">검색</button>';
+    }
+  }
+  if (qsExtras){
+    qsExtras.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-qs-action]');
+      if (!btn) return;
+      var action = btn.dataset.qsAction;
+      if (action === 'lease' || action === 'sale'){
+        var picked = { land: readSizes('land-size-check'), building: readSizes('size-check') };
+        if (action === 'lease') selectCategory('임대', '물류창고', '물류창고 임대검색');
+        else selectCategory('매매', '물류창고', '물류창고 매매검색');
+        restoreSizeChecks(picked);   // 체크해 둔 건축면적 조건을 그대로 적용
+        applyFilter();
+      } else {
+        commitSizeFilters();
+        applyFilter();
+      }
+      var target = document.getElementById('listings');
+      if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+
+  // ---------- listing cards ----------
+  function specRow(label, value){
+    if (!value) return '';
+    return '<div class="lc2-spec-row"><span class="lc2-spec-label">' + esc(label) + '</span><span class="lc2-spec-value">' + esc(formatNum(value)) + '</span></div>';
+  }
+
+  // 숫자만 입력돼 있으면 단위를 붙여줍니다. (이미 단위가 있으면 그대로 둡니다)
+  function withUnit(value, unit){
+    if (!value) return '';
+    var txt = String(value).trim();
+    return /[0-9]$/.test(txt) ? txt + unit : txt;
+  }
+
+  function buildCardSpecs(item){
+    var specs = specRow('토지', item.landPy);
+    if (item.propType === '공장용지'){
+      specs += specRow('허가사항', item.permitInfo);
+      specs += specRow('용도지역', item.landUseZone);
+      specs += specRow('평당금액', item.pricePerPy ? formatNum(item.pricePerPy) + '만원' : '');
+      specs += specRow('총금액', item.totalPrice ? formatNum(item.totalPrice) + '만원' : '');
+      return specs;
+    }
+    specs += specRow('건축', item.buildingPy);
+    if (item.propType === '물류창고'){
+      specs += specRow('층고', withUnit(item.ceilingHeight, 'm'));
+      specs += specRow('도크', item.dock);
+    } else {
+      specs += specRow('전기', withUnit(item.electricity, 'kw'));
+      specs += specRow('호이스트', withUnit(item.hoist, '톤'));
+    }
+    specs += specRow('금액', item.price);
+    return specs;
+  }
+
+  function featureSnippet(item){
+    if (item.caption){
+      var firstLine = item.caption.split('\n')[0].trim();
+      if (firstLine) return firstLine.length > 18 ? firstLine.slice(0, 18) + '…' : firstLine;
+    }
+    return item.propType || '';
+  }
+
+  function buildCardHTML(item){
+    var photos = item.photos || [];
+    var watermark = '<div class="photo-watermark"><span class="wm-brand">22세기 부동산</span><span class="wm-type">' + esc(featureSnippet(item)) + '</span></div>';
+    var thumb = photos.length
+      ? '<img src="' + photos[0] + '" alt="' + esc(item.title) + '">' + watermark
+      : '<div class="lc2-photo-empty">사진 준비 중</div>';
+    var countBadge = photos.length > 1 ? '<span class="lc2-photo-count">사진 ' + photos.length + '장</span>' : '';
+    var badge = item.exclusive ? '<span class="lc2-badge">전속</span>' : '';
+
+    var listingNoBox = '<div class="lc2-listing-no">물건번호 <b>' + esc(item.listingNo || '-') + '</b></div>';
+
+    return (
+      '<div class="lc2-header">' +
+        '<h3>' + esc(item.title) + '</h3>' +
+        badge +
+      '</div>' +
+      '<div class="lc2-body">' +
+        '<div class="lc2-photo-col">' +
+          '<div class="lc2-photo">' + thumb + countBadge + '</div>' +
+          listingNoBox +
+        '</div>' +
+        '<div class="lc2-specs">' +
+          buildCardSpecs(item) +
+        '</div>' +
+      '</div>' +
+      (item.caption ? '<div class="lc2-caption">' + esc(item.caption).replace(/\n/g, '<br>') + '</div>' : '')
+    );
+  }
+
+  function renderListings(){
+    var list = SiteData.getListings();
+    listingsGrid.innerHTML = '';
+    listingsGrid.classList.toggle('single', list.length === 1);
+    list.forEach(function(item){
+      var card = document.createElement('div');
+      card.className = 'listing-card2' + (item.highlight ? ' highlight' : '');
+      card.dataset.region = item.region;
+      card.dataset.trade = item.tradeType || '';
+      card.dataset.prop = item.propType || '';
+      card.dataset.buildingPy = pyNumber(item.buildingPy) || pyNumber(sqmToPy(item.buildingSqm)) || '';
+      card.dataset.landPy = pyNumber(item.landPy) || pyNumber(sqmToPy(item.landSqmTotal || item.landSqm)) || '';
+      card.dataset.id = item.id;
+      card.innerHTML = buildCardHTML(item);
+      card.addEventListener('click', function(){ try { openModal(item); } catch(err){ console.error('매물 상세보기 열기 오류:', err); alert('매물 정보를 여는 중 문제가 생겼어요. 새로고침 후 다시 시도해주세요.'); } });
+      listingsGrid.appendChild(card);
+    });
+    applyFilter();
+  }
+
+  var wishlistGrid = document.getElementById('wishlistGrid');
+  var wishlistEmpty = document.getElementById('wishlistEmpty');
+  function renderWishlist(){
+    if (!wishlistGrid) return;
+    var favIds = SiteData.getFavorites();
+    var favItems = SiteData.getListings().filter(function(item){ return favIds.indexOf(item.id) !== -1; });
+    wishlistGrid.innerHTML = '';
+    wishlistGrid.classList.toggle('single', favItems.length === 1);
+    if (favItems.length === 0){
+      wishlistEmpty.style.display = 'block';
+      return;
+    }
+    wishlistEmpty.style.display = 'none';
+    favItems.forEach(function(item){
+      var card = document.createElement('div');
+      card.className = 'listing-card2' + (item.highlight ? ' highlight' : '');
+      card.innerHTML = buildCardHTML(item);
+      card.addEventListener('click', function(){ try { openModal(item); } catch(err){ console.error('매물 상세보기 열기 오류:', err); alert('매물 정보를 여는 중 문제가 생겼어요. 새로고침 후 다시 시도해주세요.'); } });
+      wishlistGrid.appendChild(card);
+    });
+  }
+
+  function updateCategoryVisuals(){
+    document.querySelectorAll('.hero-panel[data-trade], .hero-panel[data-prop], nav a[data-trade], nav a[data-prop]').forEach(function(el){
+      var match = currentCategory
+        && (el.dataset.trade || '') === (currentCategory.trade || '')
+        && (el.dataset.prop || '') === (currentCategory.prop || '');
+      el.classList.toggle('active', !!match);
+    });
+  }
+
+  // 메뉴별 색을 빠른찾기 표에도 그대로 씁니다.
+  var CAT_KEYS = {
+    '임대|공장': 'lease',
+    '매매|공장': 'sale',
+    '|물류창고': 'warehouse',
+    '|공장용지': 'land'
+  };
+  function applyCategoryColor(){
+    if (!qsCard) return;
+    var key = currentCategory ? ((currentCategory.trade || '') + '|' + (currentCategory.prop || '')) : '';
+    var cat = CAT_KEYS[key];
+    if (cat) qsCard.setAttribute('data-cat', cat);
+    else qsCard.removeAttribute('data-cat');
+  }
+
+  function selectCategory(trade, prop, label){
+    var same = currentCategory && currentCategory.trade === (trade || null) && currentCategory.prop === (prop || null);
+    currentCategory = same ? null : { trade: trade || null, prop: prop || null, label: label };
+    updateCategoryVisuals();
+    applyCategoryColor();
+    renderQsSizeTable(currentCategory);
+    syncSizeUI();
+    renderQsExtras(currentCategory);
+    applyFilter();
+  }
+
+  // ---------- splash screen <-> site ----------
+  var splashScreen = document.getElementById('splashScreen');
+  var siteMain = document.getElementById('siteMain');
+  var mapFinderSection = document.getElementById('map-finder');
+  var listingsSection = document.getElementById('listings');
+  var wishlistSection = document.getElementById('wishlist');
+  var navWishlistLink = document.getElementById('navWishlistLink');
+
+  function showCategoryView(){
+    if (mapFinderSection) mapFinderSection.style.display = '';
+    if (listingsSection) listingsSection.style.display = '';
+    if (wishlistSection) wishlistSection.style.display = 'none';
+    if (navWishlistLink) navWishlistLink.classList.remove('active');
+    updateCategoryVisuals();
+  }
+  function showWishlistView(){
+    if (mapFinderSection) mapFinderSection.style.display = 'none';
+    if (listingsSection) listingsSection.style.display = 'none';
+    if (wishlistSection) wishlistSection.style.display = 'block';
+    // 찜한매물보기를 볼 때는 다른 메뉴의 색을 모두 꺼요.
+    document.querySelectorAll('nav a, .hero-panel').forEach(function(el){ el.classList.remove('active'); });
+    if (navWishlistLink) navWishlistLink.classList.add('active');
+    renderWishlist();
+  }
+  function enterSite(){
+    splashScreen.style.display = 'none';
+    siteMain.style.display = 'block';
+    showCategoryView();
+  }
+  function showSplash(){
+    siteMain.style.display = 'none';
+    splashScreen.style.display = 'flex';
+    window.scrollTo(0, 0);
+  }
+  var headerLogoLink = document.getElementById('headerLogoLink');
+  if (headerLogoLink){
+    headerLogoLink.addEventListener('click', function(e){
+      e.preventDefault();
+      showSplash();
+    });
+  }
+  if (navWishlistLink){
+    navWishlistLink.addEventListener('click', function(e){
+      e.preventDefault();
+      enterSite();
+      showWishlistView();
+      var target = document.getElementById('wishlist');
+      if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+  var splashAboutLink = document.getElementById('splashAboutLink');
+  if (splashAboutLink){
+    splashAboutLink.addEventListener('click', function(e){
+      e.preventDefault();
+      enterSite();
+      var target = document.getElementById('about');
+      if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+  var splashAllListingsLink = document.getElementById('splashAllListingsLink');
+  if (splashAllListingsLink){
+    splashAllListingsLink.addEventListener('click', function(e){
+      e.preventDefault();
+      enterSite();
+      currentRegion = '전체';
+      currentCategory = null;
+      updateRegionVisuals();
+      updateCategoryVisuals();
+      applyCategoryColor();
+      renderQsSizeTable(null);
+      syncSizeUI();
+      renderQsExtras(null);
+      applyFilter();
+      var target = document.getElementById('listings');
+      if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+
+  document.querySelectorAll('.hero-panel[data-trade], .hero-panel[data-prop], nav a[data-trade], nav a[data-prop]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      var labelEl = el.querySelector('.label');
+      var label = labelEl ? labelEl.textContent.trim() : el.textContent.trim();
+      enterSite();
+      selectCategory(el.dataset.trade || null, el.dataset.prop || null, label);
+      var target = document.getElementById('map-finder');
+      if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // ---------- 면적 조건 검색 (메뉴에 따라 토지/건물 표가 바뀝니다) ----------
+  var LAND_ROWS = [
+    ['500평 미만', 0, 500],
+    ['500평 이상 1000평 미만', 500, 1000],
+    ['1000평 이상 2000평 미만', 1000, 2000],
+    ['2000평 이상 3000평 미만', 2000, 3000],
+    ['3000평 이상', 3000, Infinity]
+  ];
+  // 공장임대 건물면적 기준
+  var BLD_ROWS_LEASE = [
+    ['60평 미만', 0, 60],
+    ['60평 이상 100평 미만', 60, 100],
+    ['100평 이상 200평 미만', 100, 200],
+    ['200평 이상 400평 미만', 200, 400],
+    ['400평 이상', 400, Infinity]
+  ];
+  // 물류창고 건축면적 기준
+  var BLD_ROWS_WAREHOUSE = [
+    ['500평 미만', 0, 500],
+    ['500평 이상 1000평 미만', 500, 1000],
+    ['1000평 이상 2000평 미만', 1000, 2000],
+    ['2000평 이상 4000평 미만', 2000, 4000],
+    ['4000평 이상', 4000, Infinity]
+  ];
+  // 공장매매 · 전체보기 건물면적 기준
+  var BLD_ROWS_DEFAULT = [
+    ['200평 미만', 0, 200],
+    ['200평 이상 400평 미만', 200, 400],
+    ['400평 이상 800평 미만', 400, 800],
+    ['800평 이상 1200평 미만', 800, 1200],
+    ['1200평 이상', 1200, Infinity]
+  ];
+
+  // 검색 버튼을 눌렀을 때만 적용되는 조건입니다.
+  var appliedSizes = { land: [], building: [] };
+
+  var qsSizeTable = document.getElementById('qsSizeTable');
+  var qsCard = document.querySelector('.quick-search-card');
+
+  // 메뉴별로 어떤 면적 검색을 보여줄지 정합니다.
+  function qsModeFor(category){
+    if (!category) return 'both';                       // 전체 보기
+    if (category.prop === '공장용지') return 'land';     // 토지면적만
+    if (category.prop === '물류창고') return 'building'; // 건축면적만
+    if (category.trade === '매매') return 'both';        // 공장매매: 토지 + 건물
+    return 'building';                                   // 공장임대: 건물면적만
+  }
+  function bldRowsFor(category){
+    var prop = category ? category.prop : null;
+    var trade = category ? category.trade : null;
+    if (prop === '물류창고') return BLD_ROWS_WAREHOUSE;
+    if (prop === '공장' && trade === '임대') return BLD_ROWS_LEASE;
+    return BLD_ROWS_DEFAULT;
+  }
+  function bldTitleFor(category){
+    return (category && category.prop === '물류창고') ? '건축면적 (평)' : '건물면적 (평)';
+  }
+
+  function qsHeadCell(title, kind, split){
+    return '<th' + (split ? ' class="qs-col-split"' : '') + '>' + title + '</th>' +
+      '<th class="qs-all-th"><label class="qs-all-label">' +
+        '<input type="checkbox" class="qs-all" data-kind="' + kind + '"> 전체</label></th>';
+  }
+  function qsBodyCell(row, cls, split){
+    return '<td' + (split ? ' class="qs-col-split"' : '') + '>' + row[0] + '</td>' +
+      '<td class="qs-check-cell"><input type="checkbox" class="' + cls + '"' +
+        ' data-min="' + row[1] + '" data-max="' + row[2] + '"></td>';
+  }
+
+  function renderQsSizeTable(category){
+    if (!qsSizeTable) return;
+    var mode = qsModeFor(category);
+    var showLand = (mode === 'land' || mode === 'both');
+    var showBld = (mode === 'building' || mode === 'both');
+    var dual = (mode === 'both');
+    var bldRows = bldRowsFor(category);
+
+    var head = '';
+    if (showLand) head += qsHeadCell('토지면적 (평)', 'land', false);
+    if (showBld) head += qsHeadCell(bldTitleFor(category), 'building', dual);
+
+    var body = '';
+    for (var i = 0; i < 5; i++){
+      body += '<tr>';
+      if (showLand) body += qsBodyCell(LAND_ROWS[i], 'land-size-check', false);
+      if (showBld) body += qsBodyCell(bldRows[i], 'size-check', dual);
+      body += '</tr>';
+    }
+
+    qsSizeTable.innerHTML =
+      '<table class="qs-table ' + (dual ? 'qs-table-dual' : 'qs-table-size') + '">' +
+        '<thead><tr>' + head + '</tr></thead>' +
+        '<tbody>' + body + '</tbody>' +
+      '</table>';
+
+    appliedSizes = { land: [], building: [] };   // 표가 바뀌면 조건도 초기화
+  }
+
+  function boxes(cls){
+    if (!qsSizeTable) return [];
+    return Array.prototype.slice.call(qsSizeTable.querySelectorAll('.' + cls));
+  }
+  function syncSizeUI(){
+    if (!qsSizeTable) return;
+    qsSizeTable.querySelectorAll('.qs-all').forEach(function(all){
+      var list = boxes(all.dataset.kind === 'land' ? 'land-size-check' : 'size-check');
+      all.checked = list.length > 0 && list.every(function(el){ return el.checked; });
+    });
+    boxes('land-size-check').concat(boxes('size-check')).forEach(function(el){
+      var cell = el.closest('td');
+      var labelCell = cell ? cell.previousElementSibling : null;
+      if (labelCell) labelCell.classList.toggle('is-on', el.checked);
+    });
+  }
+  // 체크된 구간을 읽어옵니다. 전부 체크 / 전부 해제는 '조건 없음'으로 봅니다.
+  function readSizes(cls){
+    var list = boxes(cls);
+    var picked = list.filter(function(el){ return el.checked; });
+    if (!list.length || !picked.length || picked.length === list.length) return [];
+    return picked.map(function(el){
+      return [parseFloat(el.dataset.min), parseFloat(el.dataset.max)];
+    });
+  }
+  // 메뉴가 바뀌며 표가 다시 그려져도 체크해 둔 면적을 되살립니다.
+  function restoreSizeChecks(picked){
+    ['land', 'building'].forEach(function(kind){
+      var cls = (kind === 'land') ? 'land-size-check' : 'size-check';
+      var list = picked[kind] || [];
+      boxes(cls).forEach(function(el){
+        var min = parseFloat(el.dataset.min), max = parseFloat(el.dataset.max);
+        el.checked = list.some(function(r){ return r[0] === min && r[1] === max; });
+      });
+    });
+    syncSizeUI();
+    commitSizeFilters();
+  }
+  function commitSizeFilters(){
+    appliedSizes = { land: readSizes('land-size-check'), building: readSizes('size-check') };
+  }
+  function rangeOk(card, list, dataKey){
+    if (!list.length) return true;
+    var py = parseFloat(card.dataset[dataKey] || '');
+    if (!py || isNaN(py)) return false;              // 해당 면적이 없는 매물은 제외
+    for (var i = 0; i < list.length; i++){
+      if (py >= list[i][0] && py < list[i][1]) return true;
+    }
+    return false;
+  }
+  function sizeMatches(card){
+    return rangeOk(card, appliedSizes.land, 'landPy') &&
+           rangeOk(card, appliedSizes.building, 'buildingPy');
+  }
+  if (qsSizeTable){
+    qsSizeTable.addEventListener('click', function(e){
+      var el = e.target;
+      if (el.tagName !== 'INPUT') return;
+      if (el.classList.contains('qs-all')){
+        // 전체를 누르면 아래 평수가 모두 체크되고, 한 번 더 누르면 모두 해제됩니다.
+        var on = el.checked;
+        boxes(el.dataset.kind === 'land' ? 'land-size-check' : 'size-check').forEach(function(chk){
+          chk.checked = on;
+        });
+      }
+      syncSizeUI();   // 검색 버튼을 눌러야 실제로 적용됩니다.
+    });
+  }
+
+  function applyFilter(){
+    var cards = listingsGrid.querySelectorAll('.listing-card2');
+    var visible = 0;
+    cards.forEach(function(card){
+      var regionOk = (currentRegion === '전체') || (card.dataset.region === currentRegion);
+      var categoryOk = true;
+      if (currentCategory){
+        if (currentCategory.trade && card.dataset.trade !== currentCategory.trade) categoryOk = false;
+        if (currentCategory.prop && card.dataset.prop !== currentCategory.prop) categoryOk = false;
+      }
+      var match = regionOk && categoryOk && sizeMatches(card);
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    noResultsMsg.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  // ---------- photo modal (detail sheet) ----------
+  var modal = document.getElementById('photoModal');
+  var modalPhotoRow = document.getElementById('modalPhotoRow');
+  var modalListingNo = document.getElementById('modalListingNo');
+  var modalTitle = document.getElementById('modalTitle');
+  var modalBadge = document.getElementById('modalBadge');
+  var modalGroups = document.getElementById('modalGroups');
+  var modalClose = document.getElementById('modalClose');
+  var modalFavBtn = document.getElementById('modalFavBtn');
+  var modalPrintBtn = document.getElementById('modalPrintBtn');
+  var modalPhotos = [];
+  var modalCurrentId = null;
+  var modalWatermarkText = '';
+
+  // ---------- photo zoom overlay ----------
+  var zoomOverlay = document.getElementById('photoZoomOverlay');
+  var zoomImg = document.getElementById('zoomImg');
+  var zoomClose = document.getElementById('zoomClose');
+  function openZoom(src){
+    zoomImg.src = src;
+    zoomOverlay.classList.add('open');
+  }
+  function closeZoom(){
+    zoomOverlay.classList.remove('open');
+    zoomImg.src = '';
+  }
+  zoomClose.addEventListener('click', closeZoom);
+  zoomOverlay.addEventListener('click', function(e){ if (e.target === zoomOverlay) closeZoom(); });
+
+  function formatNum(value){
+    if (value == null) return value;
+    return String(value).replace(/-?\d[\d,]*\.?\d*/g, function(m){
+      var neg = m.charAt(0) === '-' ? '-' : '';
+      var clean = m.replace(/^-/, '').replace(/,/g, '');
+      var parts = clean.split('.');
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return neg + parts.join('.');
+    });
+  }
+
+  function groupRow(label, value){
+    if (!value) return '';
+    return '<div class="detail-group-row"><span class="detail-group-label">' + esc(label) + '</span><span class="detail-group-value">' + esc(formatNum(value)) + '</span></div>';
+  }
+
+  function renderModalMedia(){
+    if (!modalPhotos.length){
+      modalPhotoRow.innerHTML = '<div class="modal-media-empty">등록된 사진이 없어요.</div>';
+      return;
+    }
+    modalPhotoRow.innerHTML = modalPhotos.map(function(src, i){
+      return (
+        '<div class="modal-photo-item" data-zoom-index="' + i + '">' +
+          '<img src="' + src + '" alt="매물 사진 ' + (i + 1) + '">' +
+          '<div class="photo-watermark"><span class="wm-brand">22세기 부동산</span><span class="wm-type">' + esc(modalWatermarkText) + '</span></div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+  modalPhotoRow.addEventListener('click', function(e){
+    var item = e.target.closest('[data-zoom-index]');
+    if (!item) return;
+    openZoom(modalPhotos[Number(item.dataset.zoomIndex)]);
+  });
+
+  function updateFavBtn(){
+    var fav = SiteData.isFavorite(modalCurrentId);
+    modalFavBtn.textContent = fav ? '★ 찜한 매물' : '☆ 매물찜하기';
+    modalFavBtn.classList.toggle('active', fav);
+  }
+  modalFavBtn.addEventListener('click', function(){
+    if (!modalCurrentId) return;
+    SiteData.toggleFavorite(modalCurrentId);
+    updateFavBtn();
+    renderWishlist();
+  });
+  modalPrintBtn.addEventListener('click', function(){
+    window.print();
+  });
+
+  function areaDisplay(sqm, py){
+    if (sqm && py) return sqm + ' m² (' + py + ')';
+    if (py) return py;
+    if (sqm) return sqm + ' m²';
+    return '';
+  }
+
+  // "453평" 처럼 단위가 붙어 있어도 숫자만 뽑아내요.
+  function pyNumber(value){
+    if (!value) return '';
+    var n = parseFloat(String(value).replace(/,/g, '').replace(/[^0-9.]/g, ''));
+    if (!n || isNaN(n)) return '';
+    return (Math.round(n * 10) / 10).toString();
+  }
+
+  // 이미지 형식의 면적 줄: "222 m² (67.2평)"
+  function areaValue(sqm, py){
+    var sqmTxt = sqm ? formatNum(sqm) + ' m²' : '';
+    var pyTxt = py ? '(' + formatNum(py) + '평)' : '';
+    if (sqmTxt && pyTxt) return sqmTxt + ' ' + pyTxt;
+    return sqmTxt || pyTxt.replace(/[()]/g, '');
+  }
+
+  function areaRow(label, sqm, py, isSub){
+    var value = areaValue(sqm, py);
+    if (!value) return '';
+    return '<div class="detail-group-row' + (isSub ? ' is-sub' : '') + '">' +
+      '<span class="detail-group-label">' + (isSub ? '<span class="sub-mark">-</span>' : '') + esc(label) + '</span>' +
+      '<span class="detail-group-value">' + esc(value) + '</span>' +
+    '</div>';
+  }
+
+  // 지목 아래에 들어가는 토지면적 줄 (총면적 → 주필지 → 그외필지)
+  function landAreaRows(item){
+    var mainSqm = item.landSqm || '';
+    var subSqm = item.landSqm2 || '';
+    var totalSqm = item.landSqmTotal || item.landSqm || '';
+    var totalPy = pyNumber(sqmToPy(totalSqm)) || pyNumber(item.landPy);
+
+    var rows = areaRow('총면적', totalSqm, totalPy, false);
+    if (!rows) return '';
+    if (subSqm){
+      rows += areaRow('주필지', mainSqm, pyNumber(sqmToPy(mainSqm)), true);
+      rows += areaRow('그외필지', subSqm, pyNumber(sqmToPy(subSqm)), true);
+    }
+    return rows;
+  }
+
+  function featureRow(label, caption, extraLines){
+    var lines = [];
+    if (caption) lines.push(esc(caption).replace(/\n/g, '<br>'));
+    (extraLines || []).forEach(function(line){ if (line) lines.push(esc(line)); });
+    if (!lines.length) return '';
+    return '<div class="detail-feature-row"><span class="detail-group-label">' + esc(label) + '</span>' +
+      '<div class="detail-feature-text">' + lines.join('<br>') + '</div></div>';
+  }
+
+  function buildDetailGroups(item){
+    var isLand = item.propType === '공장용지';
+    var isWarehouse = item.propType === '물류창고';
+    var tradeLabel = item.tradeType === '임대' ? '임대조건' : '매매조건';
+
+    var landGroup =
+      '<div class="detail-group">' +
+        '<div class="detail-group-title">토지</div>' +
+        groupRow('주소', item.title) +
+        groupRow('용도지역', item.landUseZone) +
+        groupRow('지목', item.lotCategory) +
+        landAreaRows(item) +
+        (isLand ? groupRow('허가사항', item.permitInfo) : '') +
+      '</div>';
+
+    var buildingGroup = '';
+    if (!isLand){
+      buildingGroup =
+        '<div class="detail-group">' +
+          '<div class="detail-group-title">건물</div>' +
+          groupRow('건축면적', areaDisplay(item.buildingSqm, item.buildingPy)) +
+          groupRow('연면적', areaDisplay(item.totalFloorSqm, item.totalFloorPy)) +
+          groupRow('준공연도', item.builtYear) +
+          groupRow('층고', withUnit(item.ceilingHeight, 'm')) +
+          (isWarehouse
+            ? groupRow('도크', item.dock)
+            : (groupRow('전기', withUnit(item.electricity, 'kw')) + groupRow('호이스트', withUnit(item.hoist, '톤')))) +
+          groupRow('건물 용도', item.buildingUse) +
+          groupRow('수도', item.water) +
+        '</div>';
+    }
+
+    // 물류창고의 고속도로(IC) 정보는 매물특징 안에 함께 적어줍니다.
+    var extraFeatures = [];
+    if (isWarehouse && item.highway) extraFeatures.push('고속도로(IC) : ' + item.highway);
+    var featureLabel = isLand ? '특이사항' : '매물특징';
+
+    var priceGroup =
+      '<div class="detail-group">' +
+        '<div class="detail-group-title">' + esc(tradeLabel) + '</div>' +
+        (item.tradeType === '임대'
+          ? (groupRow('보증금', item.deposit ? item.deposit + '만원' : '') + groupRow('임대료', item.rent ? item.rent + '만원' : ''))
+          : (groupRow('평당금액', item.pricePerPy ? item.pricePerPy + '만원' : '') + groupRow('총금액', item.totalPrice ? item.totalPrice + '만원' : ''))) +
+        featureRow(featureLabel, item.caption, extraFeatures) +
+      '</div>';
+
+    modalGroups.className = 'detail-groups' + (isLand ? ' two-col' : '');
+    return landGroup + buildingGroup + priceGroup;
+  }
+
+  function openModal(item){
+    modalPhotos = (item.photos || []).slice(0, 3);
+    modalCurrentId = item.id;
+    modalListingNo.textContent = item.listingNo || '-';
+    modalTitle.textContent = item.title;
+    modalBadge.style.display = item.exclusive ? 'inline-block' : 'none';
+    try {
+      modalWatermarkText = item.landPy ? ('총면적 ' + item.landPy) : featureSnippet(item);
+    } catch (err){ console.error('워터마크 계산 오류:', err); modalWatermarkText = ''; }
+    try {
+      updateFavBtn();
+    } catch (err){ console.error('즐겨찾기 상태 표시 오류:', err); }
+    try {
+      modalGroups.innerHTML = buildDetailGroups(item);
+    } catch (err){
+      console.error('매물 정보 표시 오류:', err);
+      modalGroups.innerHTML = '<div class="detail-group"><div class="detail-group-title">매물 정보</div><div class="detail-group-row"><span class="detail-group-label">알림</span><span class="detail-group-value">정보를 불러오는 중 문제가 생겼어요.</span></div></div>';
+    }
+    try {
+      renderModalMedia();
+    } catch (err){ console.error('사진 표시 오류:', err); }
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    closeZoom();
+  }
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){
+      if (zoomOverlay.classList.contains('open')) closeZoom();
+      else if (modal.classList.contains('open')) closeModal();
+    }
+  });
+
+  // ---------- notices (read-only here) ----------
+  function renderNotices(){
+    var notices = SiteData.getNotices();
+    if (notices.length === 0){
+      noticeBar.style.display = 'none';
+      noticeList.innerHTML = '';
+      return;
+    }
+    noticeBar.style.display = 'block';
+    noticeList.innerHTML = notices.map(function(n){
+      return n.url
+        ? '<li><a href="' + esc(n.url) + '" target="_blank" rel="noopener">' + esc(n.title) + '</a></li>'
+        : '<li><span>' + esc(n.title) + '</span></li>';
+    }).join('');
+  }
+
+  // ---------- reset filter link / generic scroll links ----------
+  document.addEventListener('click', function(e){
+    var resetLink = e.target.closest('[data-region-reset]');
+    if (resetLink){
+      e.preventDefault();
+      currentRegion = '전체';
+      currentCategory = null;
+      updateRegionVisuals();
+      updateCategoryVisuals();
+      applyCategoryColor();
+      renderQsSizeTable(null);
+      syncSizeUI();
+      renderQsExtras(null);
+      applyFilter();
+      return;
+    }
+
+    var scrollLink = e.target.closest('[data-scroll-to]');
+    if (scrollLink){
+      e.preventDefault();
+      enterSite();
+      var dest = document.getElementById(scrollLink.dataset.scrollTo);
+      if (dest) dest.scrollIntoView({behavior:'smooth', block:'start'});
+      return;
+    }
+  });
+
+  // ---------- init ----------
+  SiteData.initAll();
+  populateRegionSelects();
+  renderNearbyChips();
+  renderQsSizeTable(null);
+  syncSizeUI();
+  renderListings();
+  renderNotices();
+  updateRegionVisuals();
+
+  // ---------- live sync with admin.html (다른 탭에서 매물을 등록/수정/삭제하면 새로고침 없이 반영) ----------
+  window.addEventListener('storage', function(e){
+    if (!e.key) return;
+    if (e.key.indexOf('22c_') !== 0) return;
+    populateRegionSelects();
+    renderNearbyChips();
+    renderListings();
+    renderWishlist();
+    renderNotices();
+    updateRegionVisuals();
+  });
+})();
+
+</script>
+</body>
+</html>
